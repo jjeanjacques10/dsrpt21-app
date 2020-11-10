@@ -1,3 +1,4 @@
+import 'package:dsrpt21_app/app/layout/colors.dart';
 import 'package:flutter/material.dart';
 
 class CreateProductionLine extends StatefulWidget {
@@ -66,6 +67,27 @@ class _CreateProductionLineState extends State<CreateProductionLine> {
           ),
         ),
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          // Navigator.pushNamed(context, '/create-production');
+        },
+        label: Container(
+          width: 100,
+          child: Text(
+            'Enviar para produção',
+            style: TextStyle(
+              fontWeight: FontWeight.normal,
+            ),
+            overflow: TextOverflow.ellipsis,
+            textDirection: TextDirection.ltr,
+            maxLines: 2,
+          ),
+        ),
+        icon: Icon(Icons.save),
+        foregroundColor: Colors.white,
+        backgroundColor: AppColors.orange,
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }
