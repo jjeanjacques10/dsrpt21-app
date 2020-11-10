@@ -40,32 +40,15 @@ class _ProductionLineDetailScreenState
                   ),
                   Padding(
                     padding: EdgeInsets.all(16),
-                    child: TextField(
-                      onChanged: robotModelStore.setFilter,
-                      decoration: InputDecoration(
-                        hintText: 'Pesquisar',
-                        hintStyle: TextStyle(fontSize: 16),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          borderSide: BorderSide(
-                            width: 0,
-                            style: BorderStyle.none,
-                          ),
-                        ),
-                        filled: true,
-                        fillColor: Colors.grey[100],
-                        contentPadding: EdgeInsets.only(
-                          right: 30,
-                        ),
-                        prefixIcon: Padding(
-                          padding: EdgeInsets.only(right: 16.0, left: 24.0),
-                          child: Icon(
-                            Icons.search,
-                            color: Colors.black,
-                            size: 24,
-                          ),
-                        ),
-                      ),
+                    child: Column(
+                      children: [
+                        Text('Modelo: ${productionLineModel.model}'),
+                        Text('Quantidade: ${productionLineModel.count}'),
+                        Text(
+                            "Data Inicio: ${productionLineModel.startDate.day.toString()}/${productionLineModel.startDate.month.toString().padLeft(2, '0')}/${productionLineModel.startDate.year.toString().padLeft(2, '0')}"),
+                        Text(
+                            "Data Final: ${productionLineModel.endDate.day.toString()}/${productionLineModel.endDate.month.toString().padLeft(2, '0')}/${productionLineModel.endDate.year.toString().padLeft(2, '0')}"),
+                      ],
                     ),
                   ),
                   Expanded(

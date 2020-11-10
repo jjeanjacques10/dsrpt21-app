@@ -4,21 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:getwidget/components/avatar/gf_avatar.dart';
 
 Card cardRobot(BuildContext context, RobotModel robotModel,
-    ProductionLineModel production_line) {
+    ProductionLineModel productionLine) {
   return Card(
     clipBehavior: Clip.antiAlias,
     child: Column(
       children: [
         GestureDetector(
           onTap: () {
-            /* Navigator.pushNamed(context, '/detail-production',
-                arguments: robotModel); */
+            Navigator.pushNamed(context, '/detail-robot',
+                arguments: robotModel);
           },
           child: ListTile(
             leading: GFAvatar(
               size: 40,
               backgroundImage:
-                  AssetImage("assets/models/${production_line.model}.jpg"),
+                  AssetImage("assets/models/${productionLine.model}.jpg"),
             ),
             title: Text(
               '${robotModel.sku}',
