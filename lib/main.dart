@@ -1,6 +1,7 @@
 import 'package:dsrpt21_app/app/layout/colors.dart';
 import 'package:dsrpt21_app/app/screens/create_production_line_screen.dart';
 import 'package:dsrpt21_app/app/screens/home_screen.dart';
+import 'package:dsrpt21_app/app/screens/production_line_detail_screen.dart';
 import 'package:dsrpt21_app/app/screens/production_line_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
         "/": (context) => HomeScreen(),
         "/create-production": (context) => CreateProductionLine(),
         "/list-production": (context) => ProductionLineScreen(),
+        "/detail-production": (context) => ProductionLineDetailScreen(),
       },
     );
   }

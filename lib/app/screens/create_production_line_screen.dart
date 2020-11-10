@@ -1,4 +1,5 @@
 import 'package:dsrpt21_app/app/layout/colors.dart';
+import 'package:dsrpt21_app/app/models/production_line_model.dart';
 import 'package:flutter/material.dart';
 
 class CreateProductionLine extends StatefulWidget {
@@ -10,6 +11,7 @@ class CreateProductionLine extends StatefulWidget {
 
 class _CreateProductionLineState extends State<CreateProductionLine> {
   final _formKey = GlobalKey<FormState>();
+  ProductionLineModel productionLineModel = ProductionLineModel();
 
   @override
   Widget build(BuildContext context) {

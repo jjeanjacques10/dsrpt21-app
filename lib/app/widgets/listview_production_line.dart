@@ -14,7 +14,7 @@ class ProductionLineListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      shrinkWrap: true,
+      //shrinkWrap: true,
       itemCount: prodLinesModel == null ? 0 : prodLinesModel.length,
       itemBuilder: (BuildContext ctx, int index) {
         return Dismissible(

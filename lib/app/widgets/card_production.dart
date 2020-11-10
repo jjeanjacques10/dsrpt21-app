@@ -9,22 +9,28 @@ Card cardProduction(
     clipBehavior: Clip.antiAlias,
     child: Column(
       children: [
-        ListTile(
-          leading: GFAvatar(
-            size: 40,
-            backgroundImage: AssetImage("assets/models/model1.jpg"),
-          ),
-          title: Text(
-            '${productionLineModel.name}',
-            style: TextStyle(
-              fontSize: 20,
-              height: 2,
+        GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(context, '/detail-production',
+                arguments: productionLineModel);
+          },
+          child: ListTile(
+            leading: GFAvatar(
+              size: 40,
+              backgroundImage: AssetImage("assets/models/model1.jpg"),
             ),
-          ),
-          subtitle: Text(
-            '${productionLineModel.startDate.year}-${productionLineModel.endDate.year}\nQtd:${productionLineModel.count.toString()}',
-            style: TextStyle(
-              color: Colors.black.withOpacity(0.6),
+            title: Text(
+              '${productionLineModel.name}',
+              style: TextStyle(
+                fontSize: 20,
+                height: 2,
+              ),
+            ),
+            subtitle: Text(
+              '${productionLineModel.startDate.year}-${productionLineModel.endDate.year}\nQtd:${productionLineModel.count.toString()}',
+              style: TextStyle(
+                color: Colors.black.withOpacity(0.6),
+              ),
             ),
           ),
         ),
@@ -35,7 +41,8 @@ Card cardProduction(
               alignment: Alignment.centerRight,
               child: GFButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/list-production');
+                  Navigator.pushNamed(context, '/detail-production',
+                      arguments: productionLineModel);
                 },
                 text: 'Completa',
                 color: Colors.green,
