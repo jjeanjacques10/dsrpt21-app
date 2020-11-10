@@ -17,7 +17,8 @@ Card cardProduction(
           child: ListTile(
             leading: GFAvatar(
               size: 40,
-              backgroundImage: AssetImage("assets/models/model1.jpg"),
+              backgroundImage:
+                  AssetImage("assets/models/${productionLineModel.model}.jpg"),
             ),
             title: Text(
               '${productionLineModel.name}',
