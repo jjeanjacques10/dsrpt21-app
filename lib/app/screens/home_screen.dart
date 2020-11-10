@@ -81,6 +81,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           Center(
                             child: Image.asset('assets/models/model3.jpg'),
                           ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Center(
+                            child: Image.asset('assets/models/model4.jpg'),
+                          ),
                         ],
                       ),
                     ),
