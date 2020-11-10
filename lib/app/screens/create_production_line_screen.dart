@@ -1,5 +1,7 @@
 import 'package:dsrpt21_app/app/layout/colors.dart';
 import 'package:dsrpt21_app/app/models/production_line_model.dart';
+import 'package:dsrpt21_app/app/services/production_line_service.dart';
+import 'package:dsrpt21_app/app/widgets/show_alert_dialog.dart';
 import 'package:flutter/material.dart';
 
 class CreateProductionLine extends StatefulWidget {
@@ -12,6 +14,7 @@ class CreateProductionLine extends StatefulWidget {
 class _CreateProductionLineState extends State<CreateProductionLine> {
   final _formKey = GlobalKey<FormState>();
   ProductionLineModel productionLineModel = ProductionLineModel();
+  ProductionLineService productionLineService = ProductionLineService();
 
   @override
   Widget build(BuildContext context) {
@@ -27,42 +30,87 @@ class _CreateProductionLineState extends State<CreateProductionLine> {
             children: [
               new ListTile(
                 leading: const Icon(Icons.person),
-                title: new TextField(
+                title: new TextFormField(
                   decoration: new InputDecoration(
                     hintText: "UUID",
                   ),
+                  validator: (String value) {
+                    if (value.trim().isEmpty) {
+                      return 'Nome é obrigatório';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    productionLineModel.name = value;
+                  },
                 ),
               ),
               new ListTile(
                 leading: const Icon(Icons.phone),
-                title: new TextField(
+                title: new TextFormField(
                   decoration: new InputDecoration(
                     hintText: "Nome da linha de produção",
                   ),
+                  validator: (String value) {
+                    if (value.trim().isEmpty) {
+                      return 'Nome é obrigatório';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    productionLineModel.name = value;
+                  },
                 ),
               ),
               new ListTile(
                 leading: const Icon(Icons.date_range),
-                title: new TextField(
+                title: new TextFormField(
                   decoration: new InputDecoration(
                     hintText: "Data Inicio",
                   ),
+                  validator: (String value) {
+                    if (value.trim().isEmpty) {
+                      return 'Nome é obrigatório';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    productionLineModel.name = value;
+                  },
                 ),
               ),
               new ListTile(
                 leading: const Icon(Icons.date_range),
-                title: new TextField(
+                title: new TextFormField(
                   decoration: new InputDecoration(
                     hintText: "Data Final",
                   ),
+                  validator: (String value) {
+                    if (value.trim().isEmpty) {
+                      return 'Nome é obrigatório';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    productionLineModel.name = value;
+                  },
                 ),
               ),
               new ListTile(
                 leading: const Icon(Icons.save),
-                title: new TextField(
+                title: new TextFormField(
                   decoration: new InputDecoration(
                     hintText: "Tipo Robô",
                   ),
+                  validator: (String value) {
+                    if (value.trim().isEmpty) {
+                      return 'Nome é obrigatório';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    productionLineModel.name = value;
+                  },
                 ),
               ),
             ],
@@ -71,7 +119,42 @@ class _CreateProductionLineState extends State<CreateProductionLine> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          // Navigator.pushNamed(context, '/create-production');
+          try {
+            if (_formKey.currentState.validate()) {
+              _formKey.currentState.save();
+
+              productionLineService
+                  .create(productionLineModel)
+                  .then((userCreated) {
+                SnackBar snackBar = SnackBar(
+                  content: Text('Cadastro atualizado com sucesso!'),
+                  action: SnackBarAction(
+                    label: 'Ok',
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                );
+                Navigator.pop(context);
+                showAlertDialog(
+                    context, "Criado com sucesso", Icon(Icons.check));
+                Scaffold.of(context).showSnackBar(snackBar);
+              }).catchError((onError) {
+                SnackBar snackBar = SnackBar(
+                  content: Text('Cadastro criado com sucesso!'),
+                  action: SnackBarAction(
+                    label: 'Ok',
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                );
+                Scaffold.of(context).showSnackBar(snackBar);
+              });
+            }
+          } on Exception catch (e, s) {
+            print(s);
+          }
         },
         label: Container(
           width: 100,
