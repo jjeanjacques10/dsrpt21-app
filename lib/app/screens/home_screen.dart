@@ -1,8 +1,9 @@
 import 'package:dsrpt21_app/app/layout/colors.dart';
 import 'package:dsrpt21_app/app/layout/constants.dart';
-import 'package:dsrpt21_app/app/widgets/card_production.dart';
+import 'package:dsrpt21_app/app/stores/production_line_store.dart';
+import 'package:dsrpt21_app/app/widgets/listview_production_line.dart';
 import 'package:flutter/material.dart';
-import 'package:getwidget/getwidget.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);
@@ -12,41 +13,18 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final GFBottomSheetController _controller = GFBottomSheetController();
+  final ProductionLineStore productionLineStore = ProductionLineStore();
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     var homeItems = [
       ListTile(
-          title: Text(
-            'Linhas de Produção',
-            style: headline2,
-          ),
-          trailing: GestureDetector(
-            // When the child is tapped, show a snackbar.
-            onTap: () {},
-            // The custom button
-            child: Text(
-              'Ver mais',
-              style: subtitle2,
-            ),
-          )),
-      carProduction(),
-      carProduction(),
-      ListTile(
-          title: Text(
-            'Modelos',
-            style: headline2,
-          ),
-          trailing: GestureDetector(
-            // When the child is tapped, show a snackbar.
-            onTap: () {},
-            // The custom button
-            child: Text(
-              'Ver mais',
-              style: subtitle2,
-            ),
-          )),
+        title: Text(
+          'Modelos',
+          style: headline2,
+        ),
+      ),
       Container(
         margin: EdgeInsets.symmetric(vertical: 20.0),
         height: 200.0,
@@ -71,6 +49,33 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
+      ListTile(
+          title: Text(
+            'Linhas de Produção',
+            style: headline2,
+          ),
+          trailing: GestureDetector(
+            // When the child is tapped, show a snackbar.
+            onTap: () {
+              Navigator.pushNamed(context, '/list-production');
+            },
+            // The custom button
+            child: Text(
+              'Ver mais',
+              style: subtitle2,
+            ),
+          )),
+      Observer(
+        builder: (ctx) {
+          if (productionLineStore.isLoading) {
+            return CircularProgressIndicator();
+            //return CursoListViewLoading();
+          } else {
+            return ProductionLineListView(
+                prodLinesModel: productionLineStore.listaCurso);
+          }
+        },
+      )
     ];
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -150,7 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           icon: Icon(Icons.add),
           foregroundColor: Colors.white,
-          backgroundColor: Color.fromRGBO(1, 11, 15, 1),
+          backgroundColor: Colors.blueAccent,
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       ),

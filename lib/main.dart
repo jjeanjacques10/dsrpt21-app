@@ -1,7 +1,7 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dsrpt21_app/app/layout/colors.dart';
-import 'package:dsrpt21_app/app/screens/create_production_line.dart';
+import 'package:dsrpt21_app/app/screens/create_production_line_screen.dart';
 import 'package:dsrpt21_app/app/screens/home_screen.dart';
+import 'package:dsrpt21_app/app/screens/production_line_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
       routes: {
         "/": (context) => HomeScreen(),
         "/create-production": (context) => CreateProductionLine(),
+        "/list-production": (context) => ProductionLineScreen(),
       },
     );
   }

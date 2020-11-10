@@ -1,8 +1,10 @@
+import 'package:dsrpt21_app/app/models/production_line_model.dart';
 import 'package:flutter/material.dart';
 import 'package:getwidget/components/avatar/gf_avatar.dart';
 import 'package:getwidget/components/button/gf_button.dart';
 
-Card carProduction() {
+Card cardProduction(
+    BuildContext context, ProductionLineModel productionLineModel) {
   return Card(
     clipBehavior: Clip.antiAlias,
     child: Column(
@@ -12,15 +14,15 @@ Card carProduction() {
             size: 40,
             backgroundImage: AssetImage("assets/models/model1.jpg"),
           ),
-          title: const Text(
-            'Nome linha de produção',
+          title: Text(
+            '${productionLineModel.name}',
             style: TextStyle(
               fontSize: 20,
               height: 2,
             ),
           ),
           subtitle: Text(
-            '2020-2026\nQtd:100',
+            '${productionLineModel.startDate.year}-${productionLineModel.endDate.year}\nQtd:${productionLineModel.count.toString()}',
             style: TextStyle(
               color: Colors.black.withOpacity(0.6),
             ),
@@ -32,7 +34,9 @@ Card carProduction() {
             Container(
               alignment: Alignment.centerRight,
               child: GFButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/list-production');
+                },
                 text: 'Completa',
                 color: Colors.green,
               ),
