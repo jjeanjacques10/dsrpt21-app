@@ -26,6 +26,17 @@ class _ProductionLineDetailScreenState
     return Scaffold(
         appBar: AppBar(
           title: Text(productionLineModel.name),
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: <Color>[
+                    const Color(0xFF3366FF),
+                    const Color(0xFF00CCFF),
+                  ]),
+            ),
+          ),
         ),
         body: Observer(
           builder: (ctx) {

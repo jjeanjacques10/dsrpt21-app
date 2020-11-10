@@ -1,8 +1,15 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:async/async.dart';
 import 'package:dsrpt21_app/app/layout/colors.dart';
 import 'package:dsrpt21_app/app/models/production_line_model.dart';
 import 'package:dsrpt21_app/app/services/production_line_service.dart';
 import 'package:dsrpt21_app/app/widgets/show_alert_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
+import 'package:path/path.dart';
 
 class CreateProductionLine extends StatefulWidget {
   CreateProductionLine({Key key}) : super(key: key);
@@ -15,12 +22,24 @@ class _CreateProductionLineState extends State<CreateProductionLine> {
   final _formKey = GlobalKey<FormState>();
   ProductionLineModel productionLineModel = ProductionLineModel();
   ProductionLineService productionLineService = ProductionLineService();
+  String selectedModel = "model1";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Cadastro de Linha de produção'),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: <Color>[
+                  const Color(0xFF3366FF),
+                  const Color(0xFF00CCFF),
+                ]),
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.only(top: 15),
@@ -32,24 +51,7 @@ class _CreateProductionLineState extends State<CreateProductionLine> {
                 leading: const Icon(Icons.person),
                 title: new TextFormField(
                   decoration: new InputDecoration(
-                    hintText: "UUID",
-                  ),
-                  validator: (String value) {
-                    if (value.trim().isEmpty) {
-                      return 'Nome é obrigatório';
-                    }
-                    return null;
-                  },
-                  onSaved: (value) {
-                    productionLineModel.name = value;
-                  },
-                ),
-              ),
-              new ListTile(
-                leading: const Icon(Icons.phone),
-                title: new TextFormField(
-                  decoration: new InputDecoration(
-                    hintText: "Nome da linha de produção",
+                    hintText: "Nome",
                   ),
                   validator: (String value) {
                     if (value.trim().isEmpty) {
@@ -97,22 +99,50 @@ class _CreateProductionLineState extends State<CreateProductionLine> {
                 ),
               ),
               new ListTile(
+                leading: const Icon(Icons.model_training),
+                title: DropdownButtonFormField<String>(
+                  value: selectedModel,
+                  decoration: new InputDecoration(
+                    hintText: "Modelo",
+                  ),
+                  onChanged: (city) {
+                    selectedModel = city;
+                    productionLineModel.model = city;
+                  },
+                  validator: (value) =>
+                      value == null ? 'Modelo é obrigatória' : null,
+                  items: [
+                    "model1",
+                    "model2",
+                    "model3",
+                    "model4",
+                  ].map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                ),
+              ),
+              new ListTile(
                 leading: const Icon(Icons.save),
                 title: new TextFormField(
+                  keyboardType: TextInputType.number,
                   decoration: new InputDecoration(
-                    hintText: "Tipo Robô",
+                    hintText: "Quantidade",
                   ),
                   validator: (String value) {
                     if (value.trim().isEmpty) {
-                      return 'Nome é obrigatório';
+                      return 'Quantidade é obrigatório';
                     }
                     return null;
                   },
                   onSaved: (value) {
-                    productionLineModel.name = value;
+                    productionLineModel.count = int.tryParse(value);
                   },
                 ),
               ),
+              RaisedButton(onPressed: () async => {})
             ],
           ),
         ),
@@ -170,7 +200,7 @@ class _CreateProductionLineState extends State<CreateProductionLine> {
         ),
         icon: Icon(Icons.save),
         foregroundColor: Colors.white,
-        backgroundColor: AppColors.orange,
+        backgroundColor: Colors.blue,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );

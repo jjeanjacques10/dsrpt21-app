@@ -18,6 +18,17 @@ class _ProductionLineScreenState extends State<ProductionLineScreen> {
     return Scaffold(
         appBar: AppBar(
           title: Text('Linhas de Produção'),
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: <Color>[
+                    const Color(0xFF3366FF),
+                    const Color(0xFF00CCFF),
+                  ]),
+            ),
+          ),
         ),
         body: Observer(
           builder: (ctx) {
