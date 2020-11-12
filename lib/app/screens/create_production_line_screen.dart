@@ -281,11 +281,13 @@ class _CreateProductionLineState extends State<CreateProductionLine> {
       var digest1 = sha256.convert(bytes1);
 
       RobotModel robotModel = RobotModel(
+          name: 'Robot $i',
           profession: '-',
           color: '#150a60',
           productionLine: productionLineModel.id,
           robotParts: [''],
-          sku: digest1.toString());
+          sku: digest1.toString().substring(0, 5),
+          model: productionLineModel.model);
 
       robotService.create(robotModel).then((robot) {
         print(robot);

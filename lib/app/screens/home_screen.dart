@@ -133,8 +133,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                     productionLineStore.init();
                                   },
                                   child: ProductionLineListView(
-                                      prodLinesModel:
-                                          productionLineStore.filtered),
+                                    prodLinesModel:
+                                        productionLineStore.filtered,
+                                    qtd: 3,
+                                  ),
                                 ),
                               ),
                             );

@@ -21,7 +21,7 @@ Card cardRobot(BuildContext context, RobotModel robotModel,
                   AssetImage("assets/models/${productionLine.model}.jpg"),
             ),
             title: Text(
-              '${robotModel.sku}',
+              '${robotModel.name}',
               style: TextStyle(
                 fontSize: 15,
                 height: 2,
