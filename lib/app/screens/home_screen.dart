@@ -127,9 +127,16 @@ class _HomeScreenState extends State<HomeScreen> {
                           } else {
                             return SizedBox(
                               height: 300,
-                              child: ProductionLineListView(
-                                  prodLinesModel:
-                                      productionLineStore.listaCurso),
+                              child: Expanded(
+                                child: RefreshIndicator(
+                                  onRefresh: () async {
+                                    productionLineStore.init();
+                                  },
+                                  child: ProductionLineListView(
+                                      prodLinesModel:
+                                          productionLineStore.filtered),
+                                ),
+                              ),
                             );
                           }
                         },

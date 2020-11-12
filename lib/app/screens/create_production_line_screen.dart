@@ -293,9 +293,8 @@ class _CreateProductionLineState extends State<CreateProductionLine> {
         print(onError);
       });
     }
-    Future.delayed(const Duration(seconds: 50), () {
-      productionLineModel.status = 'concluido';
-      productionLineService.update(productionLineModel).then((value) => null);
-    });
+    Future.delayed(const Duration(seconds: 50), () {});
+    productionLineModel.status = 'completo';
+    productionLineService.update(productionLineModel).then((value) => null);
   }
 }

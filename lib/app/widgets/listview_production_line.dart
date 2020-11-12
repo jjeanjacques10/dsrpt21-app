@@ -16,28 +16,7 @@ class ProductionLineListView extends StatelessWidget {
       //shrinkWrap: true,
       itemCount: prodLinesModel == null ? 0 : prodLinesModel.length,
       itemBuilder: (BuildContext ctx, int index) {
-        return Dismissible(
-          onDismissed: (direction) {
-            // removendo o item
-          },
-          key: Key(prodLinesModel[index].id.toString()),
-          child: cardProduction(context, prodLinesModel[index]),
-          direction: DismissDirection.endToStart,
-          background: Padding(
-            padding: const EdgeInsets.all(88.0),
-            child: Container(
-              alignment: AlignmentDirectional.centerEnd,
-              color: Colors.redAccent,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 16, 0),
-                child: Icon(
-                  Icons.delete,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ),
-        );
+        return cardProduction(context, prodLinesModel[index]);
       },
     );
   }
