@@ -24,7 +24,7 @@ class ProductionLineListView extends StatelessWidget {
           child: cardProduction(context, prodLinesModel[index]),
           direction: DismissDirection.endToStart,
           background: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(88.0),
             child: Container(
               alignment: AlignmentDirectional.centerEnd,
               color: Colors.redAccent,

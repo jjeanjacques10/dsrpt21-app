@@ -21,7 +21,7 @@ class _ProductionLineDetailScreenState
     ProductionLineModel productionLineModel =
         ModalRoute.of(context).settings.arguments;
 
-    robotModelStore.setFilter(int.tryParse(productionLineModel.id));
+    robotModelStore.setFilter(productionLineModel.id);
 
     return Scaffold(
         appBar: AppBar(

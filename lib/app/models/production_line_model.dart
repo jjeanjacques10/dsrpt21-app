@@ -1,11 +1,12 @@
 class ProductionLineModel {
-  String id;
+  int id;
   String name;
   DateTime startDate;
   DateTime endDate;
   String model;
   int count;
   String fileModel;
+  String status;
 
   ProductionLineModel(
       {this.id,
@@ -14,10 +15,11 @@ class ProductionLineModel {
       this.endDate,
       this.model,
       this.count,
-      this.fileModel});
+      this.fileModel,
+      this.status});
 
   ProductionLineModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+    id = int.tryParse(json['id']);
     name = json['name'];
     startDate =
         json['start_date'] != null ? DateTime.parse(json['start_date']) : null;
@@ -26,6 +28,7 @@ class ProductionLineModel {
     model = json['model'];
     count = json['count'];
     fileModel = json['file_model'];
+    status = json['status'];
   }
 
   Map<String, dynamic> toJson() {
@@ -39,6 +42,7 @@ class ProductionLineModel {
     data['model'] = this.model;
     data['count'] = this.count;
     data['file_model'] = this.fileModel;
+    data['status'] = this.status == null ? 'produzindo' : this.status;
     return data;
   }
 }

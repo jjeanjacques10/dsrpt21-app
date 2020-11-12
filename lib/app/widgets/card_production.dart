@@ -42,11 +42,13 @@ Card cardProduction(
               alignment: Alignment.centerRight,
               child: GFButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/detail-production',
-                      arguments: productionLineModel);
+                  if (productionLineModel.status != 'produzindo') {
+                    Navigator.pushNamed(context, '/detail-production',
+                        arguments: productionLineModel);
+                  }
                 },
-                text: 'Completa',
-                color: Colors.green,
+                text: productionLineModel.status,
+                color: getColor(productionLineModel.status),
               ),
             ),
           ],
@@ -54,4 +56,16 @@ Card cardProduction(
       ],
     ),
   );
+}
+
+getColor(String status) {
+  switch (status) {
+    case 'completo':
+      return Colors.green;
+      break;
+    case 'produzindo':
+      return Colors.amber[700];
+    default:
+      return Colors.white;
+  }
 }

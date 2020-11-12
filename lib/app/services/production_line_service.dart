@@ -35,7 +35,8 @@ class ProductionLineService {
     return lista;
   }
 
-  Future<int> create(ProductionLineModel productionLineModel) async {
+  Future<ProductionLineModel> create(
+      ProductionLineModel productionLineModel) async {
     try {
       Response response = await service.create().post(
             _resource,
@@ -43,9 +44,9 @@ class ProductionLineService {
           );
 
       if (response.statusCode == 201) {
-        var retorno = (response.data["id"] is String)
-            ? int.parse(response.data["id"])
-            : response.data["id"];
+        var retorno = response.data != null
+            ? ProductionLineModel.fromJson(response.data)
+            : null;
         return retorno;
       }
     } catch (error) {
