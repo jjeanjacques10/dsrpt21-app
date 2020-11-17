@@ -42,7 +42,6 @@ class _ProductionLineDetailScreenState
           builder: (ctx) {
             if (robotModelStore.isLoading) {
               return CircularProgressIndicator();
-              //return CursoListViewLoading();
             } else {
               return Column(
                 children: [
