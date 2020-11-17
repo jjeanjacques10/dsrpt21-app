@@ -1,5 +1,6 @@
 import 'package:dsrpt21_app/app/layout/colors.dart';
 import 'package:dsrpt21_app/app/screens/create_production_line_screen.dart';
+import 'package:dsrpt21_app/app/screens/group_screen.dart';
 import 'package:dsrpt21_app/app/screens/home_screen.dart';
 import 'package:dsrpt21_app/app/screens/production_line_detail_screen.dart';
 import 'package:dsrpt21_app/app/screens/production_line_screen.dart';
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
         "/list-production": (context) => ProductionLineScreen(),
         "/detail-production": (context) => ProductionLineDetailScreen(),
         "/detail-robot": (context) => RobotDetailScreen(),
+        "/group": (context) => GroupScreen(),
       },
     );
   }

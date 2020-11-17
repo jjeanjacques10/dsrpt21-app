@@ -172,14 +172,29 @@ class _HomeScreenState extends State<HomeScreen> {
           color: Color.fromRGBO(31, 139, 254, 1),
           child: Row(
             children: [
-              IconButton(
-                  icon: Icon(
-                    Icons.menu,
-                    color: Colors.white,
+              PopupMenuButton(
+                icon: Icon(
+                  Icons.menu,
+                  color: Colors.white,
+                ),
+                itemBuilder: (BuildContext context) => <PopupMenuEntry>[
+                  const PopupMenuItem(
+                    child: ListTile(
+                      leading: Icon(Icons.announcement),
+                      title: Text('Comunicado Geral'),
+                    ),
                   ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/list-production');
-                  }),
+                  PopupMenuItem(
+                    child: ListTile(
+                      leading: Icon(Icons.group),
+                      title: Text('Equipe'),
+                      onTap: () {
+                        Navigator.pushNamed(context, '/group');
+                      },
+                    ),
+                  ),
+                ],
+              ),
               Spacer(),
               IconButton(
                   icon: Icon(
