@@ -168,20 +168,8 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          color: Colors.orange,
-          gradient: new LinearGradient(
-              colors: [
-                const Color(0xFF3366FF),
-                const Color(0xFF00CCFF),
-              ],
-              begin: const FractionalOffset(0.0, 0.0),
-              end: const FractionalOffset(1.0, 0.0),
-              stops: [0.0, 1.0],
-              tileMode: TileMode.clamp),
-        ),
         child: BottomAppBar(
-          color: Colors.transparent,
+          color: Color.fromRGBO(17, 111, 182, 1),
           child: Row(
             children: [
               IconButton(

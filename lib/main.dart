@@ -5,9 +5,13 @@ import 'package:dsrpt21_app/app/screens/production_line_detail_screen.dart';
 import 'package:dsrpt21_app/app/screens/production_line_screen.dart';
 import 'package:dsrpt21_app/app/screens/robot_detail_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(MyApp());
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      systemNavigationBarColor:
+          Color.fromRGBO(17, 111, 182, 1))); // navigation bar color));
 }
 
 class MyApp extends StatelessWidget {
