@@ -5,6 +5,9 @@ import 'package:dsrpt21_app/app/widgets/listview_production_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+
+import '../layout/constants.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);
@@ -68,6 +71,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Column(
                     children: [
                       ListTile(
+                        leading: const Icon(
+                          MdiIcons.robot,
+                          size: 35,
+                          ),
                         title: Text(
                           'Modelos Disponíveis',
                           style: headline2,
@@ -116,6 +123,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       ListTile(
+                        leading: const Icon(
+                          MdiIcons.robotIndustrial,
+                          size: 35,
+                          color: Colors.deepOrange,
+                          ),
                           title: Text(
                             'Linhas de Produção',
                             style: headline2,
