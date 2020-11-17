@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:math';
 
 import 'package:dsrpt21_app/app/models/production_line_model.dart';
@@ -8,7 +7,6 @@ import 'package:dsrpt21_app/app/services/robot_service.dart';
 import 'package:dsrpt21_app/app/widgets/show_alert_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:crypto/crypto.dart';
 
 class CreateProductionLine extends StatefulWidget {
   CreateProductionLine({Key key}) : super(key: key);
