@@ -169,7 +169,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       bottomNavigationBar: Container(
         child: BottomAppBar(
-          color: Color.fromRGBO(17, 111, 182, 1),
+          color: Color.fromRGBO(31, 139, 254, 1),
           child: Row(
             children: [
               IconButton(

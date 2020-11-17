@@ -11,7 +11,7 @@ void main() {
   runApp(MyApp());
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       systemNavigationBarColor:
-          Color.fromRGBO(17, 111, 182, 1))); // navigation bar color));
+          Color.fromRGBO(31, 139, 254, 1))); // navigation bar color));
 }
 
 class MyApp extends StatelessWidget {
