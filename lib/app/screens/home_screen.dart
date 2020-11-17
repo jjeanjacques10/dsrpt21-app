@@ -4,6 +4,7 @@ import 'package:dsrpt21_app/app/stores/production_line_store.dart';
 import 'package:dsrpt21_app/app/widgets/listview_production_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);
@@ -38,16 +39,15 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             Container(
               padding: EdgeInsets.only(
-                  top: 60.0, left: 30.0, right: 30.0, bottom: 30.0),
+                  top: 30.0, left: 30.0, right: 30.0, bottom: 18.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(
-                    'Asimov Factory',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 30.0,
-                      fontWeight: FontWeight.w700,
+                  Center(
+                    child: Image.asset(
+                      'assets/logos/logo1.png',
+                      width: 300,
+                      height: 100,
                     ),
                   ),
                 ],
@@ -69,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       ListTile(
                         title: Text(
-                          'Modelos',
+                          'Modelos Disponíveis',
                           style: headline2,
                         ),
                       ),
@@ -79,26 +79,38 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: new ListView(
                           scrollDirection: Axis.horizontal,
                           children: <Widget>[
-                            Center(
-                              child: Image.asset('assets/models/model1.jpg'),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(8.0),
+                              child: Center(
+                                child: Image.asset('assets/models/model1.jpg'),
+                              ),
                             ),
                             SizedBox(
                               width: 10,
                             ),
-                            Center(
-                              child: Image.asset('assets/models/model2.jpg'),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(8.0),
+                              child: Center(
+                                child: Image.asset('assets/models/model2.jpg'),
+                              ),
                             ),
                             SizedBox(
                               width: 10,
                             ),
-                            Center(
-                              child: Image.asset('assets/models/model3.jpg'),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(8.0),
+                              child: Center(
+                                child: Image.asset('assets/models/model3.jpg'),
+                              ),
                             ),
                             SizedBox(
                               width: 10,
                             ),
-                            Center(
-                              child: Image.asset('assets/models/model4.jpg'),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(8.0),
+                              child: Center(
+                                child: Image.asset('assets/models/model4.jpg'),
+                              ),
                             ),
                           ],
                         ),
@@ -116,7 +128,11 @@ class _HomeScreenState extends State<HomeScreen> {
                             // The custom button
                             child: Text(
                               'Ver mais',
-                              style: subtitle2,
+                              style: GoogleFonts.roboto(
+                                fontSize: 13.0,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.deepOrange,
+                              ),
                             ),
                           )),
                       Observer(
@@ -168,6 +184,14 @@ class _HomeScreenState extends State<HomeScreen> {
           color: Colors.transparent,
           child: Row(
             children: [
+              IconButton(
+                  icon: Icon(
+                    Icons.menu,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/list-production');
+                  }),
               Spacer(),
               IconButton(
                   icon: Icon(

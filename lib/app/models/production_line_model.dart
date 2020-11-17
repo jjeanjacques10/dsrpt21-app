@@ -1,6 +1,7 @@
 class ProductionLineModel {
   int id;
   String name;
+  String description;
   DateTime startDate;
   DateTime endDate;
   String model;
@@ -11,6 +12,7 @@ class ProductionLineModel {
   ProductionLineModel(
       {this.id,
       this.name,
+      this.description,
       this.startDate,
       this.endDate,
       this.model,
@@ -21,6 +23,7 @@ class ProductionLineModel {
   ProductionLineModel.fromJson(Map<String, dynamic> json) {
     id = int.tryParse(json['id']);
     name = json['name'];
+    description = json['description'];
     startDate =
         json['start_date'] != null ? DateTime.parse(json['start_date']) : null;
     endDate =
@@ -35,6 +38,7 @@ class ProductionLineModel {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['name'] = this.name;
+    data['description'] = this.description;
     data['start_date'] =
         "${this.startDate.year.toString()}-${this.startDate.month.toString().padLeft(2, '0')}-${this.startDate.day.toString().padLeft(2, '0')}";
     data['end_date'] =

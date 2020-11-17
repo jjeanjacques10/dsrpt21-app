@@ -60,10 +60,10 @@ Card cardProduction(
 
 getColor(String status) {
   switch (status) {
-    case 'completo':
+    case 'Completo':
       return Colors.green;
       break;
-    case 'produzindo':
+    case 'Produzindo':
       return Colors.amber[700];
     default:
       return Colors.white;

@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:dsrpt21_app/app/models/production_line_model.dart';
 import 'package:dsrpt21_app/app/models/robot_model.dart';
 import 'package:dsrpt21_app/app/services/production_line_service.dart';
 import 'package:dsrpt21_app/app/services/robot_service.dart';
+import 'package:dsrpt21_app/app/widgets/show_alert_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:crypto/crypto.dart';
@@ -22,6 +24,12 @@ class _CreateProductionLineState extends State<CreateProductionLine> {
   ProductionLineModel productionLineModel = ProductionLineModel();
   ProductionLineService productionLineService = ProductionLineService();
   String selectedModel = "model1";
+
+  var _chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+  Random _rnd = Random();
+
+  String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
+      length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
 
   @override
   Widget build(BuildContext context) {
@@ -50,16 +58,16 @@ class _CreateProductionLineState extends State<CreateProductionLine> {
                 leading: const Icon(Icons.person),
                 title: new TextFormField(
                   decoration: new InputDecoration(
-                    hintText: "Nome",
+                    hintText: "Descrição",
                   ),
                   validator: (String value) {
                     if (value.trim().isEmpty) {
-                      return 'Nome é obrigatório';
+                      return 'Descrição é obrigatório';
                     }
                     return null;
                   },
                   onSaved: (value) {
-                    productionLineModel.name = value;
+                    productionLineModel.description = value;
                   },
                 ),
               ),
@@ -215,26 +223,17 @@ class _CreateProductionLineState extends State<CreateProductionLine> {
             if (_formKey.currentState.validate()) {
               _formKey.currentState.save();
 
+              productionLineModel.name = 'Produção | ${getRandomString(3)}';
+              productionLineModel.status = 'Produzindo';
+
               productionLineService
                   .create(productionLineModel)
                   .then((productionLine) {
                 createBots(productionLineModel.count, productionLine);
 
-                SnackBar snackBar = SnackBar(
-                  content: Text('Cadastro atualizado com sucesso!'),
-                  action: SnackBarAction(
-                    label: 'Ok',
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                );
-
-                /*  Navigator.pop(context);
+                Navigator.pop(context);
                 showAlertDialog(
-                    context, "Criado com sucesso", Icon(Icons.check)); */
-
-                Scaffold.of(context).showSnackBar(snackBar);
+                    context, "Criado com sucesso!", Icon(Icons.check));
               }).catchError((onError) {
                 SnackBar snackBar = SnackBar(
                   content: Text('Cadastro criado com sucesso!'),
@@ -275,18 +274,15 @@ class _CreateProductionLineState extends State<CreateProductionLine> {
   createBots(qtd, ProductionLineModel productionLineModel) async {
     RobotService robotService = RobotService();
     for (var i = 0; i < qtd; i++) {
-      //Generate sku (hash)
-      var bytes1 = utf8.encode(
-          "number$i-production${productionLineModel.id}"); // data being hashed
-      var digest1 = sha256.convert(bytes1);
+      var randomNumber = getRandomString(5);
 
       RobotModel robotModel = RobotModel(
-          name: 'Robot $i',
-          profession: '-',
-          color: '#150a60',
+          name: 'Robot ${randomNumber + i.toString()}',
+          profession: 'Não Definida',
+          color: '#FFFFFF',
           productionLine: productionLineModel.id,
-          robotParts: [''],
-          sku: digest1.toString().substring(0, 5),
+          robotParts: ['Corpo'],
+          sku: getRandomString(4),
           model: productionLineModel.model);
 
       robotService.create(robotModel).then((robot) {
@@ -295,8 +291,9 @@ class _CreateProductionLineState extends State<CreateProductionLine> {
         print(onError);
       });
     }
-    Future.delayed(const Duration(seconds: 50), () {});
-    productionLineModel.status = 'completo';
-    productionLineService.update(productionLineModel).then((value) => null);
+    Future.delayed(const Duration(seconds: 80), () {
+      productionLineModel.status = 'Completo';
+      productionLineService.update(productionLineModel).then((value) => null);
+    });
   }
 }
