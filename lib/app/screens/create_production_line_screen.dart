@@ -7,6 +7,7 @@ import 'package:dsrpt21_app/app/services/robot_service.dart';
 import 'package:dsrpt21_app/app/widgets/show_alert_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class CreateProductionLine extends StatefulWidget {
   CreateProductionLine({Key key}) : super(key: key);
@@ -148,7 +149,8 @@ class _CreateProductionLineState extends State<CreateProductionLine> {
                 ),
               ),
               new ListTile(
-                leading: const Icon(Icons.model_training),
+                leading: const Icon(
+                  MdiIcons.robot),
                 title: DropdownButtonFormField<String>(
                   value: selectedModel,
                   decoration: new InputDecoration(
