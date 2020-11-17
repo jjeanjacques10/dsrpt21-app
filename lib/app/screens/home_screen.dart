@@ -74,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         leading: const Icon(
                           MdiIcons.robot,
                           size: 35,
-                          ),
+                        ),
                         title: Text(
                           'Modelos Disponíveis',
                           style: headline2,
@@ -123,10 +123,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       ListTile(
-                        leading: const Icon(
-                          MdiIcons.robotIndustrial,
-                          size: 35,
-                          color: Colors.deepOrange,
+                          leading: const Icon(
+                            MdiIcons.robotIndustrial,
+                            size: 35,
                           ),
                           title: Text(
                             'Linhas de Produção',
