@@ -189,7 +189,6 @@ class _RobotDetailScreenState extends State<RobotDetailScreen> {
       ),
     );
   }
-
   _buildTextDetails(texto) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16),

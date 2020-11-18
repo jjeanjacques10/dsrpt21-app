@@ -1,5 +1,6 @@
 import 'package:dsrpt21_app/app/models/production_line_model.dart';
 import 'package:dsrpt21_app/app/stores/robot_store.dart';
+import 'package:dsrpt21_app/app/widgets/card_robot_shimmer.dart';
 import 'package:dsrpt21_app/app/widgets/listview_robot.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -18,6 +19,8 @@ class _ProductionLineDetailScreenState
 
   @override
   Widget build(BuildContext context) {
+    double containerWidth = 220.0;
+    double containerHeight = 10.0;
     ProductionLineModel productionLineModel =
         ModalRoute.of(context).settings.arguments;
 
@@ -41,7 +44,93 @@ class _ProductionLineDetailScreenState
         body: Observer(
           builder: (ctx) {
             if (robotModelStore.isLoading) {
-              return CircularProgressIndicator();
+              return SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                          left: 30, right: 30, top: 30, bottom: 20),
+                      child: Column(
+                        children: [
+                          Text(
+                            'Modelo: -          ',
+                            style: TextStyle(
+                                color: Colors.grey[400],
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            'Quantidade: - ',
+                            style: TextStyle(
+                                color: Colors.grey[400],
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            "Data Inicio: 00/00/0000",
+                            style: TextStyle(
+                                color: Colors.grey[400],
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            "Data Final: 00/00/0000",
+                            style: TextStyle(
+                                color: Colors.grey[400],
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ),
+                    cardRobotShimmer(),
+                    cardRobotShimmer(),
+                    cardRobotShimmer(),
+                    cardRobotShimmer(),
+                    cardRobotShimmer(),
+                    cardRobotShimmer(),
+                    /*
+                    Shimmer.fromColors( 
+                      baseColor: Colors.blue, 
+                      highlightColor: Colors.white,
+                      child: Container(
+                      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10), 
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Container(
+                        height: 60.0,
+                        width: 80.0,
+                        color: Colors.grey,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget> [
+                          Container(
+                            height: containerHeight,
+                            width: containerWidth,
+                            color: Colors.grey,
+                          ),
+                          SizedBox(height: 5.0),
+                          Container(
+                            height: containerHeight,
+                            width: containerWidth,
+                            color: Colors.grey,
+                          ),
+                          SizedBox(height: 5.0),
+                          Container(
+                            height: containerHeight,
+                            width: containerWidth * 0.75,
+                            color: Colors.grey,
+                          ),
+                          SizedBox(height: 5.0),
+                            ],
+                          )
+                        ],
+                      ),   
+                     ),
+                    ),
+                    */
+                  ],
+                ),
+              );
             } else {
               return Column(
                 children: [
@@ -52,12 +141,30 @@ class _ProductionLineDetailScreenState
                     padding: EdgeInsets.all(16),
                     child: Column(
                       children: [
-                        Text('Modelo: ${productionLineModel.model}'),
-                        Text('Quantidade: ${productionLineModel.count}'),
                         Text(
-                            "Data Inicio: ${productionLineModel.startDate.day.toString()}/${productionLineModel.startDate.month.toString().padLeft(2, '0')}/${productionLineModel.startDate.year.toString().padLeft(2, '0')}"),
+                          'Modelo: ${productionLineModel.model}',
+                          style: TextStyle(
+                              color: Colors.grey[400],
+                              fontWeight: FontWeight.bold),
+                        ),
                         Text(
-                            "Data Final: ${productionLineModel.endDate.day.toString()}/${productionLineModel.endDate.month.toString().padLeft(2, '0')}/${productionLineModel.endDate.year.toString().padLeft(2, '0')}"),
+                          'Quantidade: ${productionLineModel.count}',
+                          style: TextStyle(
+                              color: Colors.grey[400],
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          "Data Inicio: ${productionLineModel.startDate.day.toString()}/${productionLineModel.startDate.month.toString().padLeft(2, '0')}/${productionLineModel.startDate.year.toString().padLeft(2, '0')}",
+                          style: TextStyle(
+                              color: Colors.grey[400],
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          "Data Final: ${productionLineModel.endDate.day.toString()}/${productionLineModel.endDate.month.toString().padLeft(2, '0')}/${productionLineModel.endDate.year.toString().padLeft(2, '0')}",
+                          style: TextStyle(
+                              color: Colors.grey[400],
+                              fontWeight: FontWeight.bold),
+                        ),
                       ],
                     ),
                   ),
