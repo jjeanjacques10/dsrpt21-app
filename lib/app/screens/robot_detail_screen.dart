@@ -33,7 +33,7 @@ class _RobotDetailScreenState extends State<RobotDetailScreen> {
       body: ListView(
         children: <Widget>[
           _buildImagemDetalhes('assets/models/${robotModel.model}.jpg'),
-          _buildTitle(robotModel.profession),
+          _buildTitle("Profissão: ${robotModel.profession}"),
           SizedBox(
             height: 16,
           ),
@@ -154,9 +154,9 @@ class _RobotDetailScreenState extends State<RobotDetailScreen> {
         child: Text(
           titulo,
           style: TextStyle(
-            color: Colors.grey[800],
-            fontWeight: FontWeight.bold,
-            fontSize: 24,
+            color: Colors.grey[600],
+            fontWeight: FontWeight.w500,
+            fontSize: 22,
           ),
         ),
       ),
@@ -189,6 +189,7 @@ class _RobotDetailScreenState extends State<RobotDetailScreen> {
       ),
     );
   }
+
   _buildTextDetails(texto) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16),

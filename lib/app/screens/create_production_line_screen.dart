@@ -1,5 +1,6 @@
+import 'dart:io';
 import 'dart:math';
-
+import 'package:path/path.dart';
 import 'package:dsrpt21_app/app/models/production_line_model.dart';
 import 'package:dsrpt21_app/app/models/robot_model.dart';
 import 'package:dsrpt21_app/app/services/production_line_service.dart';
@@ -8,6 +9,8 @@ import 'package:dsrpt21_app/app/widgets/show_alert_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:pdf_flutter/pdf_flutter.dart';
+import 'package:file_picker/file_picker.dart';
 
 class CreateProductionLine extends StatefulWidget {
   CreateProductionLine({Key key}) : super(key: key);
@@ -17,6 +20,7 @@ class CreateProductionLine extends StatefulWidget {
 }
 
 class _CreateProductionLineState extends State<CreateProductionLine> {
+  File localFile;
   TextEditingController dateStartCtl = TextEditingController();
   TextEditingController dateEndCtl = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -26,6 +30,8 @@ class _CreateProductionLineState extends State<CreateProductionLine> {
 
   var _chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
   Random _rnd = Random();
+
+  get fileName => null;
 
   String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
       length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
@@ -54,7 +60,7 @@ class _CreateProductionLineState extends State<CreateProductionLine> {
           child: Column(
             children: [
               new ListTile(
-                leading: const Icon(Icons.person),
+                leading: const Icon(Icons.subject),
                 title: new TextFormField(
                   decoration: new InputDecoration(
                     hintText: "Descrição",
@@ -149,8 +155,7 @@ class _CreateProductionLineState extends State<CreateProductionLine> {
                 ),
               ),
               new ListTile(
-                leading: const Icon(
-                  MdiIcons.robot),
+                leading: const Icon(MdiIcons.robot),
                 title: DropdownButtonFormField<String>(
                   value: selectedModel,
                   decoration: new InputDecoration(
@@ -176,7 +181,7 @@ class _CreateProductionLineState extends State<CreateProductionLine> {
                 ),
               ),
               new ListTile(
-                leading: const Icon(Icons.save),
+                leading: const Icon(MdiIcons.counter),
                 title: new TextFormField(
                   keyboardType: TextInputType.number,
                   decoration: new InputDecoration(
@@ -196,23 +201,72 @@ class _CreateProductionLineState extends State<CreateProductionLine> {
               SizedBox(
                 height: 20,
               ),
-              Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: <Color>[
-                        const Color(0xFF3366FF),
-                        const Color(0xFF00CCFF),
-                      ]),
-                ),
-                child: RaisedButton(
-                  textColor: Colors.white,
-                  color: Colors.transparent,
-                  child: Text("Enviar Template"),
-                  onPressed: () async => {},
-                ),
-              )
+              localFile == null
+                  ? RaisedButton.icon(
+                      textColor: Colors.white,
+                      color: Colors.blue,
+                      icon: Icon(MdiIcons.filePdf),
+                      label: Text("Enviar Template"),
+                      onPressed: () async {
+                        File file = await FilePicker.getFile(
+                            allowedExtensions: ['pdf'], type: FileType.custom);
+                        setState(() {
+                          localFile = file;
+                        });
+                      },
+                    )
+                  : RaisedButton.icon(
+                      textColor: Colors.white,
+                      color: Colors.blue,
+                      icon: Icon(MdiIcons.filePdf),
+                      label: Text("${basename(localFile.path)}"),
+                      onPressed: () async {
+                        File file = await FilePicker.getFile(
+                            allowedExtensions: ['pdf'], type: FileType.custom);
+                        setState(() {
+                          localFile = file;
+                        });
+                      },
+                    ),
+              ListTile(
+                title: localFile != null
+                    ? Column(
+                        children: <Widget>[
+                          SizedBox(
+                            height: 25,
+                          ),
+                          PDF.file(
+                            localFile,
+                            height: 300,
+                            width: 200,
+                            placeHolder: Image.asset("assets/images/pdf.png",
+                                height: 200, width: 100),
+                          ),
+                        ],
+                      )
+                    : Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(MdiIcons.filePdf),
+                              Text(
+                                "",
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 3,
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
             ],
           ),
         ),
@@ -265,7 +319,7 @@ class _CreateProductionLineState extends State<CreateProductionLine> {
         ),
         icon: Icon(Icons.save),
         foregroundColor: Colors.white,
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.deepOrange,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
