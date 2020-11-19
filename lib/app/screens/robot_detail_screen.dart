@@ -1,5 +1,6 @@
 import 'package:dsrpt21_app/app/models/robot_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
 
 class RobotDetailScreen extends StatefulWidget {
   RobotDetailScreen({Key key}) : super(key: key);
@@ -10,6 +11,9 @@ class RobotDetailScreen extends StatefulWidget {
 
 class _RobotDetailScreenState extends State<RobotDetailScreen> {
   final _formKey = GlobalKey<FormState>();
+  ColorSwatch _tempMainColor; 
+  ColorSwatch _mainColor = Colors.blue;
+  String selectedProfession = "Policial";
 
   @override
   Widget build(BuildContext context) {
@@ -29,15 +33,6 @@ class _RobotDetailScreenState extends State<RobotDetailScreen> {
                 ]),
           ),
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.copy),
-            tooltip: 'Clone Robô',
-            onPressed: () {
-              //scaffoldKey.currentState.showSnackBar(snackBar);
-            },
-          ),
-        ],
       ),
       body: ListView(
         children: <Widget>[
@@ -66,60 +61,118 @@ class _RobotDetailScreenState extends State<RobotDetailScreen> {
               children: [
                 new ListTile(
                   leading: const Icon(Icons.person),
-                  title: new TextFormField(
-                    initialValue: robotModel.color,
-                    decoration: new InputDecoration(
-                      hintText: "Cor",
-                    ),
-                    validator: (String value) {
-                      if (value.trim().isEmpty) {
-                        return 'Cor é obrigatória';
-                      }
-                      return null;
-                    },
-                    onSaved: (value) {
-                      robotModel.color = value;
-                    },
-                  ),
+                  title: Text(
+                      "#${_mainColor.value.toRadixString(16).toUpperCase().substring(2)}"),
+                  onTap: _openMainColorPicker,
                 ),
                 new ListTile(
                   leading: const Icon(Icons.eject),
-                  title: new TextFormField(
-                    initialValue: robotModel.profession,
-                    keyboardType: TextInputType.number,
+                  title: DropdownButtonFormField<String>(
+                    value: selectedProfession,
                     decoration: new InputDecoration(
-                      hintText: "Profissão",
+                      hintText: "profissão",
                     ),
-                    validator: (String value) {
-                      if (value.trim().isEmpty) {
-                        return 'Profissão é obrigatório';
-                      }
-                      return null;
+                    onChanged: (value) {
+                      selectedProfession = value;
+                      //productionLineModel.model = value;
                     },
-                    onSaved: (value) {
-                      robotModel.color = value;
-                    },
+                    validator: (value) =>
+                        value == null ? 'profissão é obrigatória' : null,
+                    items: [
+                      "Policial",
+                      "Medico",
+                      "Bombeiro",
+                      "Programador",
+                      "Auxiliar de fabrica",
+                      "Não Definida",
+                    ].map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
                   ),
                 ),
                 new ListTile(
-                  leading: const Icon(Icons.party_mode),
-                  title: new TextFormField(
-                    initialValue: robotModel.robotParts.toString(),
-                    keyboardType: TextInputType.number,
-                    decoration: new InputDecoration(
-                      hintText: "Partes",
-                    ),
-                    validator: (String value) {
-                      if (value.trim().isEmpty) {
-                        return 'Partes é obrigatório';
-                      }
-                      return null;
-                    },
-                    onSaved: (value) {
-                      robotModel.color = value;
-                    },
-                  ),
-                ),
+                    leading: const Icon(Icons.party_mode),
+                    title: Column(
+                      children: [
+                        Row(
+                          children: [
+                            FilterChip(
+                              label: Text('esteira'),
+                              selected: true,
+                              onSelected: (bool value) {},
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            FilterChip(
+                              label: Text('pernas'),
+                              onSelected: (bool value) {},
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            FilterChip(
+                              label: Text('laser'),
+                              selected: true,
+                              onSelected: (bool value) {},
+                            ),
+                          ],
+                        ),
+                        Row(
+                          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            FilterChip(
+                              label: Text('Filter 1'),
+                              selected: true,
+                              onSelected: (bool value) {},
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            FilterChip(
+                              label: Text('Filter 2'),
+                              onSelected: (bool value) {},
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            FilterChip(
+                              label: Text('Filter 3'),
+                              selected: true,
+                              onSelected: (bool value) {},
+                            ),
+                          ],
+                        ),
+                        Row(
+                          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            FilterChip(
+                              label: Text('Filter 1'),
+                              selected: true,
+                              onSelected: (bool value) {},
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            FilterChip(
+                              label: Text('Filter 2'),
+                              onSelected: (bool value) {},
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            FilterChip(
+                              label: Text('Filter 3'),
+                              selected: true,
+                              onSelected: (bool value) {},
+                            ),
+                          ],
+                        ),
+                      ],
+                    )),
                 SizedBox(
                   height: 20,
                 ),
@@ -177,7 +230,9 @@ class _RobotDetailScreenState extends State<RobotDetailScreen> {
       padding: EdgeInsets.all(8),
       child: Row(
         children: [
-          buildPokFeature(color, "Color"),
+          buildPokFeature(
+              "#${_mainColor.value.toRadixString(16).toUpperCase().substring(2)}",
+              "Color"),
           buildPokFeature("$prod", "Produção"),
           buildPokFeature("$parts", "Peças"),
         ],
@@ -275,6 +330,43 @@ class _RobotDetailScreenState extends State<RobotDetailScreen> {
             scrollDirection: Axis.vertical,
             children: list),
       ),
+    );
+  }
+
+  void _openMainColorPicker() async {
+    _openDialog(
+      "Main Color picker",
+      MaterialColorPicker(
+        selectedColor: _mainColor,
+        allowShades: false,
+        onMainColorChange: (color) => setState(() => _tempMainColor = color),
+      ),
+    );
+  }
+
+  void _openDialog(String title, Widget content) {
+    showDialog(
+      context: context,
+      builder: (_) {
+        return AlertDialog(
+          contentPadding: const EdgeInsets.all(6.0),
+          title: Text(title),
+          content: content,
+          actions: [
+            FlatButton(
+              child: Text('CANCEL'),
+              onPressed: Navigator.of(context).pop,
+            ),
+            FlatButton(
+              child: Text('SUBMIT'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                setState(() => _mainColor = _tempMainColor);
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
