@@ -84,7 +84,7 @@ class _ProductionLineDetailScreenState
                     cardRobotShimmer(),
                     cardRobotShimmer(),
                     cardRobotShimmer(),
-                    cardRobotShimmer(),    
+                    cardRobotShimmer(),
                   ],
                 ),
               );

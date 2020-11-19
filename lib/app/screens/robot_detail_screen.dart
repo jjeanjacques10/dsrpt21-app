@@ -11,7 +11,7 @@ class RobotDetailScreen extends StatefulWidget {
 
 class _RobotDetailScreenState extends State<RobotDetailScreen> {
   final _formKey = GlobalKey<FormState>();
-  ColorSwatch _tempMainColor; 
+  ColorSwatch _tempMainColor;
   ColorSwatch _mainColor = Colors.blue;
   String selectedProfession = "Policial";
 
