@@ -29,6 +29,15 @@ class _RobotDetailScreenState extends State<RobotDetailScreen> {
                 ]),
           ),
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.copy),
+            tooltip: 'Clone Robô',
+            onPressed: () {
+              //scaffoldKey.currentState.showSnackBar(snackBar);
+            },
+          ),
+        ],
       ),
       body: ListView(
         children: <Widget>[
