@@ -37,6 +37,7 @@ Este comando ou selecione **Run and Debug**
 - Jean Jacques Nascimento Barros – RM 81524 
 - Vinicius Mota Pereira Silva – RM 80101 
 - Vitor de Menezes Rico – RM 80515
+- Matheus Douglas de Toledo - RM78833 
 
 ---
 
