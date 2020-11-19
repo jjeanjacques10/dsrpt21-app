@@ -1,6 +1,7 @@
 import 'package:dsrpt21_app/app/layout/colors.dart';
 import 'package:dsrpt21_app/app/layout/constants.dart';
 import 'package:dsrpt21_app/app/stores/production_line_store.dart';
+import 'package:dsrpt21_app/app/widgets/card_production_shimmer.dart';
 import 'package:dsrpt21_app/app/widgets/listview_production_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -23,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-     double containerWidth = 220.0;
+    double containerWidth = 220.0;
     double containerHeight = 10.0;
     return Scaffold(
       primary: true,
@@ -152,48 +153,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Observer(
                         builder: (ctx) {
                           if (productionLineStore.isLoading) {
-                            return Shimmer.fromColors( 
-                baseColor: Colors.grey[300], 
-                highlightColor: Colors.white,
-                child: Container(
-                padding: EdgeInsets.symmetric(vertical: 2, horizontal: 2), 
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Container(
-                  height: 60.0,
-                  width: 55.0,
-                  color: Colors.grey,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget> [
-                    Container(
-                      height: containerHeight,
-                      width: containerWidth,
-                      color: Colors.grey,
-                    ),
-                    SizedBox(height: 5.0),
-                    Container(
-                      height: containerHeight,
-                      width: containerWidth,
-                      color: Colors.grey,
-                    ),
-                    SizedBox(height: 5.0),
-                    Container(
-                      height: containerHeight,
-                      width: containerWidth * 0.75,
-                      color: Colors.grey,
-                    ),
-                    SizedBox(height: 5.0),
-                      ],
-                    )
-                  ],
-                ),   
-               ),
-              );
-                            //return CursoListViewLoading();
+                            return cardProductionShimmer();
                           } else {
                             return SizedBox(
                               height: 300,
