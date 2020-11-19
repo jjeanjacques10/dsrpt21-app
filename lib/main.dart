@@ -7,6 +7,9 @@ import 'package:dsrpt21_app/app/screens/production_line_screen.dart';
 import 'package:dsrpt21_app/app/screens/robot_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:splashscreen/splashscreen.dart';
+
+import 'app/screens/splash_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -25,9 +28,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: AppColors.secundary,
         //visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      initialRoute: '/',
+      initialRoute: '/flash',
       routes: {
-        "/": (context) => HomeScreen(),
+        "/flash": (context) => FlashScreen(),
         "/create-production": (context) => CreateProductionLine(),
         "/list-production": (context) => ProductionLineScreen(),
         "/detail-production": (context) => ProductionLineDetailScreen(),
