@@ -34,45 +34,49 @@ class _ProductionLineScreenState extends State<ProductionLineScreen> {
         body: Observer(
           builder: (ctx) {
             if (productionLineStore.isLoading) {
-              return Column(
-                children: [
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(16),
-                    child: TextField(
-                      readOnly: true,
-                      decoration: InputDecoration(
-                        hintText: 'Pesquisar',
-                        hintStyle: TextStyle(fontSize: 16),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          borderSide: BorderSide(
-                            width: 0,
-                            style: BorderStyle.none,
+              return SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(16),
+                      child: TextField(
+                        readOnly: true,
+                        decoration: InputDecoration(
+                          hintText: 'Pesquisar',
+                          hintStyle: TextStyle(fontSize: 16),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            borderSide: BorderSide(
+                              width: 0,
+                              style: BorderStyle.none,
+                            ),
                           ),
-                        ),
-                        filled: true,
-                        fillColor: Colors.grey[100],
-                        contentPadding: EdgeInsets.only(
-                          right: 30,
-                        ),
-                        prefixIcon: Padding(
-                          padding: EdgeInsets.only(right: 16.0, left: 24.0),
-                          child: Icon(
-                            Icons.search,
-                            color: Colors.black,
-                            size: 24,
+                          filled: true,
+                          fillColor: Colors.grey[100],
+                          contentPadding: EdgeInsets.only(
+                            right: 30,
+                          ),
+                          prefixIcon: Padding(
+                            padding: EdgeInsets.only(right: 16.0, left: 24.0),
+                            child: Icon(
+                              Icons.search,
+                              color: Colors.black,
+                              size: 24,
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  cardProductionShimmer(),
-                  cardProductionShimmer(),
-                  cardProductionShimmer(),
-                ],
+                    cardProductionShimmer(),
+                    cardProductionShimmer(),
+                    cardProductionShimmer(),
+                    cardProductionShimmer(),
+                    cardProductionShimmer(),
+                  ],
+                ),
               );
             } else {
               return Column(

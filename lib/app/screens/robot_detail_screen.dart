@@ -1,8 +1,10 @@
 import 'package:dsrpt21_app/app/models/robot_model.dart';
 import 'package:dsrpt21_app/app/services/robot_service.dart';
+import 'package:dsrpt21_app/app/widgets/card_robot.dart';
 import 'package:dsrpt21_app/app/widgets/show_alert_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
+import 'package:getwidget/components/avatar/gf_avatar.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class RobotDetailScreen extends StatefulWidget {
@@ -62,6 +64,59 @@ class _RobotDetailScreenState extends State<RobotDetailScreen> {
                 ]),
           ),
         ),
+        actions: [
+          IconButton(
+            icon: Icon(MdiIcons.contentCopy),
+            onPressed: () {
+              robotService.create(robotModel).then((value) {
+                robotModel.id = value.toString();
+                AlertDialog alert = AlertDialog(
+                  title: Icon(MdiIcons.robot),
+                  content: Column(
+                    children: [
+                      Text('Robô Clonado'),
+                      Card(
+                        clipBehavior: Clip.antiAlias,
+                        child: Column(
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(context, '/detail-robot',
+                                    arguments: robotModel);
+                              },
+                              child: ListTile(
+                                leading: GFAvatar(
+                                  size: 40,
+                                  backgroundImage: AssetImage(
+                                      "assets/models/${robotModel.model}.jpg"),
+                                ),
+                                title: Text(
+                                  '${robotModel.name}',
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    height: 2,
+                                  ),
+                                ),
+                                subtitle: Text('${robotModel.profession}'),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ); // show the dialog
+                showDialog(
+                  context: context,
+                  builder: (BuildContext ctx) {
+                    Future.delayed(Duration(seconds: 3), () {});
+                    return alert;
+                  },
+                );
+              });
+            },
+          ),
+        ],
       ),
       body: ListView(
         children: <Widget>[
