@@ -190,6 +190,8 @@ class _CreateProductionLineState extends State<CreateProductionLine> {
                   validator: (String value) {
                     if (value.trim().isEmpty) {
                       return 'Quantidade é obrigatório';
+                    } else if (int.tryParse(value) >= 6) {
+                      return 'Quantidade não deve ser maior que 6';
                     }
                     return null;
                   },

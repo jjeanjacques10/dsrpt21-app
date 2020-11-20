@@ -153,7 +153,17 @@ class _HomeScreenState extends State<HomeScreen> {
                       Observer(
                         builder: (ctx) {
                           if (productionLineStore.isLoading) {
-                            return cardProductionShimmer();
+                            return SizedBox(
+                              height: 300,
+                              child: Expanded(
+                                child: ListView.builder(
+                                  itemCount: 3,
+                                  itemBuilder: (BuildContext ctx, int index) {
+                                    return cardProductionShimmer();
+                                  },
+                                ),
+                              ),
+                            );
                           } else {
                             return SizedBox(
                               height: 300,
