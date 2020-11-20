@@ -3,12 +3,9 @@ import 'package:dsrpt21_app/app/widgets/card_production_shimmer.dart';
 import 'package:dsrpt21_app/app/widgets/listview_production_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:shimmer/shimmer.dart';
 
 class ProductionLineScreen extends StatefulWidget {
   ProductionLineScreen({Key key}) : super(key: key);
-
-  static const _highLightColor = Color.fromRGBO(64, 75, 96, .1);
 
   @override
   _ProductionLineScreenState createState() => _ProductionLineScreenState();
@@ -19,8 +16,6 @@ class _ProductionLineScreenState extends State<ProductionLineScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double containerWidth = 220.0;
-    double containerHeight = 10.0;
     return Scaffold(
         appBar: AppBar(
           title: Text('Linhas de Produção'),

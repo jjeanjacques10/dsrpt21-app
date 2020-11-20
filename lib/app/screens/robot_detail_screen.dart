@@ -1,4 +1,6 @@
 import 'package:dsrpt21_app/app/models/robot_model.dart';
+import 'package:dsrpt21_app/app/services/robot_service.dart';
+import 'package:dsrpt21_app/app/widgets/show_alert_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -15,25 +17,37 @@ class _RobotDetailScreenState extends State<RobotDetailScreen> {
   ColorSwatch _tempMainColor;
   ColorSwatch _mainColor = Colors.blue;
   String selectedProfession = "Não Definida";
-  var isSelected = [
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false
-  ];
+  RobotService robotService = RobotService();
+  bool selectedColor = false;
+
+  var isSelected = {
+    "Laser": false,
+    "Visão Noturna": false,
+    "Proteção IP68": false,
+    "Esteira": false,
+    "Braço": false,
+    "Blindagem": false,
+    "Hélice": false,
+    "Jetpack": false,
+    "Visão Térmica": false,
+  };
 
   @override
   Widget build(BuildContext context) {
     RobotModel robotModel = ModalRoute.of(context).settings.arguments;
+
+    for (String k in isSelected.keys) {
+      setState(() {
+        if (robotModel.robotParts.contains(k)) {
+          isSelected[k] = true;
+        }
+      });
+    }
+
     setState(() {
       selectedProfession = robotModel.profession;
     });
+
     return Scaffold(
       appBar: AppBar(
         title: Text(robotModel.name),
@@ -68,8 +82,21 @@ class _RobotDetailScreenState extends State<RobotDetailScreen> {
           SizedBox(
             height: 16,
           ),
-          _buildLineDetailIcons(robotModel.color, robotModel.productionLine,
-              robotModel.robotParts.length),
+          Padding(
+            padding: EdgeInsets.all(8),
+            child: Row(
+              children: [
+                buildPokFeature(
+                    selectedColor == false
+                        ? '#${robotModel.color}'
+                        : '#${_mainColor.value.toRadixString(16).toUpperCase().substring(2)}',
+                    "Cor"),
+                buildPokFeature("${robotModel.productionLine}", "Produção"),
+                buildPokFeature("${robotModel.robotParts.length}", "Peças"),
+              ],
+            ),
+          ),
+
           SizedBox(
             height: 16,
           ),
@@ -89,23 +116,23 @@ class _RobotDetailScreenState extends State<RobotDetailScreen> {
                 new ListTile(
                   leading: Icon(
                     MdiIcons.square,
-                    color: Color(hexToColor(
-                        '#${_mainColor.value.toRadixString(16).toUpperCase().substring(2)}')),
+                    color: selectedColor == false
+                        ? Color(hexToColor('#${robotModel.color}'))
+                        : Color(hexToColor(
+                            '#${_mainColor.value.toRadixString(16).toUpperCase().substring(2)}')),
                   ),
                   title: Text(
                       "#${_mainColor.value.toRadixString(16).toUpperCase().substring(2)}"),
                   onTap: () {
                     setState(() {
-                      robotModel.color = _mainColor.value
-                          .toRadixString(16)
-                          .toUpperCase()
-                          .substring(2);
+                      robotModel.color =
+                          "${_mainColor.value.toRadixString(16).toUpperCase().substring(2)}";
                     });
                     _openMainColorPicker();
                   },
                 ),
                 new ListTile(
-                  leading: const Icon(MdiIcons.briefcase),
+                  leading: const Icon(MdiIcons.briefcaseVariant),
                   title: DropdownButtonFormField<String>(
                     value: selectedProfession,
                     decoration: new InputDecoration(
@@ -114,6 +141,7 @@ class _RobotDetailScreenState extends State<RobotDetailScreen> {
                     onChanged: (value) {
                       setState(() {
                         selectedProfession = value;
+                        robotModel.profession = value;
                       });
                     },
                     validator: (value) =>
@@ -145,13 +173,13 @@ class _RobotDetailScreenState extends State<RobotDetailScreen> {
                             FilterChip(
                               label: Text('Laser'),
                               labelStyle: TextStyle(
-                                  color: isSelected[0]
+                                  color: isSelected['Laser']
                                       ? Colors.white
                                       : Colors.grey[600]),
-                              selected: isSelected[0],
+                              selected: isSelected['Laser'],
                               onSelected: (bool selected) {
                                 setState(() {
-                                  isSelected[0] = !isSelected[0];
+                                  isSelected['Laser'] = !isSelected['Laser'];
                                 });
                               },
                               selectedColor: Theme.of(context).accentColor,
@@ -160,13 +188,14 @@ class _RobotDetailScreenState extends State<RobotDetailScreen> {
                             FilterChip(
                               label: Text('Visão Noturna'),
                               labelStyle: TextStyle(
-                                  color: isSelected[1]
+                                  color: isSelected['Visão Noturna']
                                       ? Colors.white
                                       : Colors.grey[600]),
-                              selected: isSelected[1],
+                              selected: isSelected['Visão Noturna'],
                               onSelected: (bool selected) {
                                 setState(() {
-                                  isSelected[1] = !isSelected[1];
+                                  isSelected['Visão Noturna'] =
+                                      !isSelected['Visão Noturna'];
                                 });
                               },
                               selectedColor: Theme.of(context).accentColor,
@@ -175,13 +204,14 @@ class _RobotDetailScreenState extends State<RobotDetailScreen> {
                             FilterChip(
                               label: Text('Proteção IP68'),
                               labelStyle: TextStyle(
-                                  color: isSelected[2]
+                                  color: isSelected['Proteção IP68']
                                       ? Colors.white
                                       : Colors.grey[600]),
-                              selected: isSelected[2],
+                              selected: isSelected['Proteção IP68'],
                               onSelected: (bool selected) {
                                 setState(() {
-                                  isSelected[2] = !isSelected[2];
+                                  isSelected['Proteção IP68'] =
+                                      !isSelected['Proteção IP68'];
                                 });
                               },
                               selectedColor: Theme.of(context).accentColor,
@@ -194,13 +224,14 @@ class _RobotDetailScreenState extends State<RobotDetailScreen> {
                             FilterChip(
                               label: Text('Esteira'),
                               labelStyle: TextStyle(
-                                  color: isSelected[3]
+                                  color: isSelected['Esteira']
                                       ? Colors.white
                                       : Colors.grey[600]),
-                              selected: isSelected[3],
+                              selected: isSelected['Esteira'],
                               onSelected: (bool selected) {
                                 setState(() {
-                                  isSelected[3] = !isSelected[3];
+                                  isSelected['Esteira'] =
+                                      !isSelected['Esteira'];
                                 });
                               },
                               selectedColor: Theme.of(context).accentColor,
@@ -209,13 +240,13 @@ class _RobotDetailScreenState extends State<RobotDetailScreen> {
                             FilterChip(
                               label: Text('Braço'),
                               labelStyle: TextStyle(
-                                  color: isSelected[4]
+                                  color: isSelected['Braço']
                                       ? Colors.white
                                       : Colors.grey[600]),
-                              selected: isSelected[4],
+                              selected: isSelected['Braço'],
                               onSelected: (bool selected) {
                                 setState(() {
-                                  isSelected[4] = !isSelected[4];
+                                  isSelected['Braço'] = !isSelected['Braço'];
                                 });
                               },
                               selectedColor: Theme.of(context).accentColor,
@@ -224,13 +255,14 @@ class _RobotDetailScreenState extends State<RobotDetailScreen> {
                             FilterChip(
                               label: Text('Blindagem'),
                               labelStyle: TextStyle(
-                                  color: isSelected[5]
+                                  color: isSelected['Blindagem']
                                       ? Colors.white
                                       : Colors.grey[600]),
-                              selected: isSelected[5],
+                              selected: isSelected['Blindagem'],
                               onSelected: (bool selected) {
                                 setState(() {
-                                  isSelected[5] = !isSelected[5];
+                                  isSelected['Blindagem'] =
+                                      !isSelected['Blindagem'];
                                 });
                               },
                               selectedColor: Theme.of(context).accentColor,
@@ -243,13 +275,13 @@ class _RobotDetailScreenState extends State<RobotDetailScreen> {
                             FilterChip(
                               label: Text('Hélice'),
                               labelStyle: TextStyle(
-                                  color: isSelected[6]
+                                  color: isSelected['Hélice']
                                       ? Colors.white
                                       : Colors.grey[600]),
-                              selected: isSelected[6],
+                              selected: isSelected['Hélice'],
                               onSelected: (bool selected) {
                                 setState(() {
-                                  isSelected[6] = !isSelected[6];
+                                  isSelected['Hélice'] = !isSelected['Hélice'];
                                 });
                               },
                               selectedColor: Theme.of(context).accentColor,
@@ -258,13 +290,14 @@ class _RobotDetailScreenState extends State<RobotDetailScreen> {
                             FilterChip(
                               label: Text('Jetpack'),
                               labelStyle: TextStyle(
-                                  color: isSelected[7]
+                                  color: isSelected['Jetpack']
                                       ? Colors.white
                                       : Colors.grey[600]),
-                              selected: isSelected[7],
+                              selected: isSelected['Jetpack'],
                               onSelected: (bool selected) {
                                 setState(() {
-                                  isSelected[7] = !isSelected[7];
+                                  isSelected['Jetpack'] =
+                                      !isSelected['Jetpack'];
                                 });
                               },
                               selectedColor: Theme.of(context).accentColor,
@@ -273,13 +306,14 @@ class _RobotDetailScreenState extends State<RobotDetailScreen> {
                             FilterChip(
                               label: Text('Visão Térmica'),
                               labelStyle: TextStyle(
-                                  color: isSelected[8]
+                                  color: isSelected['Visão Térmica']
                                       ? Colors.white
                                       : Colors.grey[600]),
-                              selected: isSelected[8],
+                              selected: isSelected['Visão Térmica'],
                               onSelected: (bool selected) {
                                 setState(() {
-                                  isSelected[8] = !isSelected[8];
+                                  isSelected['Visão Térmica'] =
+                                      !isSelected['Visão Térmica'];
                                 });
                               },
                               selectedColor: Theme.of(context).accentColor,
@@ -297,7 +331,24 @@ class _RobotDetailScreenState extends State<RobotDetailScreen> {
                   color: Colors.blue,
                   icon: Icon(MdiIcons.refreshCircle),
                   label: Text("Atualizar Robô"),
-                  onPressed: () async {},
+                  onPressed: () async {
+                    robotModel.robotParts = [];
+                    robotModel.color =
+                        "${_mainColor.value.toRadixString(16).toUpperCase().substring(2)}";
+
+                    setState(() {
+                      for (String k in isSelected.keys) {
+                        if (isSelected[k]) {
+                          robotModel.robotParts.add(k);
+                        }
+                      }
+                    });
+
+                    robotService.update(robotModel);
+                    //Navigator.pop(context);
+                    showAlertDialog(
+                        context, "Atualizado com sucesso!", Icon(Icons.check));
+                  },
                 )
               ],
             ),
@@ -315,21 +366,6 @@ class _RobotDetailScreenState extends State<RobotDetailScreen> {
     return Image.asset(image);
   }
 
-  _buildLineDetailIcons(color, prod, parts) {
-    return Padding(
-      padding: EdgeInsets.all(8),
-      child: Row(
-        children: [
-          buildPokFeature(
-              "#${_mainColor.value.toRadixString(16).toUpperCase().substring(2)}",
-              "Color"),
-          buildPokFeature("$prod", "Produção"),
-          buildPokFeature("$parts", "Peças"),
-        ],
-      ),
-    );
-  }
-
   _buildSubtitle(subtitulo) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16),
@@ -339,19 +375,6 @@ class _RobotDetailScreenState extends State<RobotDetailScreen> {
           color: Colors.grey[800],
           fontWeight: FontWeight.bold,
           fontSize: 20,
-        ),
-      ),
-    );
-  }
-
-  _buildTextDetails(texto) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16),
-      child: Text(
-        texto,
-        style: TextStyle(
-          color: Colors.grey[600],
-          fontSize: 15,
         ),
       ),
     );
@@ -438,7 +461,10 @@ class _RobotDetailScreenState extends State<RobotDetailScreen> {
       MaterialColorPicker(
         selectedColor: _mainColor,
         allowShades: false,
-        onMainColorChange: (color) => setState(() => _tempMainColor = color),
+        onMainColorChange: (color) => setState(() {
+          selectedColor = true;
+          _tempMainColor = color;
+        }),
       ),
     );
   }

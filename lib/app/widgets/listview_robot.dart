@@ -1,16 +1,21 @@
 import 'package:dsrpt21_app/app/models/production_line_model.dart';
 import 'package:dsrpt21_app/app/models/robot_model.dart';
+import 'package:dsrpt21_app/app/stores/robot_store.dart';
 import 'package:flutter/material.dart';
 
 import 'card_robot.dart';
 
 class RobotListView extends StatelessWidget {
   const RobotListView(
-      {Key key, @required this.robots, @required this.productionLine})
+      {Key key,
+      @required this.robots,
+      @required this.productionLine,
+      @required this.robotModelStore})
       : super(key: key);
 
   final List<RobotModel> robots;
   final ProductionLineModel productionLine;
+  final RobotStore robotModelStore;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +28,8 @@ class RobotListView extends StatelessWidget {
             // removendo o item
           },
           key: Key(robots[index].id.toString()),
-          child: cardRobot(context, robots[index], productionLine),
+          child: cardRobot(
+              context, robots[index], productionLine, robotModelStore),
           direction: DismissDirection.endToStart,
           background: Padding(
             padding: const EdgeInsets.all(8.0),

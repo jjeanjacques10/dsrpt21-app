@@ -19,8 +19,6 @@ class _ProductionLineDetailScreenState
 
   @override
   Widget build(BuildContext context) {
-    double containerWidth = 220.0;
-    double containerHeight = 10.0;
     ProductionLineModel productionLineModel =
         ModalRoute.of(context).settings.arguments;
 
@@ -65,13 +63,13 @@ class _ProductionLineDetailScreenState
                                 fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            "Data Inicio: 00/00/0000",
+                            "Data Inicio: --/--/----",
                             style: TextStyle(
                                 color: Colors.grey[400],
                                 fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            "Data Final: 00/00/0000",
+                            "Data Final: --/--/----",
                             style: TextStyle(
                                 color: Colors.grey[400],
                                 fontWeight: FontWeight.bold),
@@ -133,7 +131,8 @@ class _ProductionLineDetailScreenState
                       },
                       child: RobotListView(
                           robots: robotModelStore.filtered,
-                          productionLine: productionLineModel),
+                          productionLine: productionLineModel,
+                          robotModelStore: robotModelStore),
                     ),
                   ),
                 ],

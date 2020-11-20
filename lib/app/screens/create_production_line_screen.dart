@@ -333,9 +333,9 @@ class _CreateProductionLineState extends State<CreateProductionLine> {
       RobotModel robotModel = RobotModel(
           name: 'Robot ${randomNumber + i.toString()}',
           profession: 'Não Definida',
-          color: '#FFFFFF',
+          color: '2196F3',
           productionLine: productionLineModel.id,
-          robotParts: ['Corpo'],
+          robotParts: [],
           sku: getRandomString(4),
           model: productionLineModel.model);
 
