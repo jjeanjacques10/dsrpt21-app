@@ -28,7 +28,7 @@ Card cardProduction(
               ),
             ),
             subtitle: Text(
-              '${productionLineModel.startDate.year}-${productionLineModel.endDate.year}\nQtd:${productionLineModel.count.toString()}',
+              '${productionLineModel.startDate.year}-${productionLineModel.endDate.year}\nQuantidade:${productionLineModel.count.toString()}',
               style: TextStyle(
                 color: Colors.black.withOpacity(0.6),
               ),

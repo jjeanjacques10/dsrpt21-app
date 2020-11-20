@@ -1,10 +1,11 @@
 import 'package:dsrpt21_app/app/models/robot_model.dart';
 import 'package:dsrpt21_app/app/services/robot_service.dart';
-import 'package:dsrpt21_app/app/widgets/card_robot.dart';
 import 'package:dsrpt21_app/app/widgets/show_alert_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
+import 'package:getwidget/colors/gf_color.dart';
 import 'package:getwidget/components/avatar/gf_avatar.dart';
+import 'package:getwidget/components/progress_bar/gf_progress_bar.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class RobotDetailScreen extends StatefulWidget {
@@ -18,20 +19,22 @@ class _RobotDetailScreenState extends State<RobotDetailScreen> {
   final _formKey = GlobalKey<FormState>();
   ColorSwatch _tempMainColor;
   ColorSwatch _mainColor = Colors.blue;
-  String selectedProfession = "Não Definida";
+  String selectedProfession = "Neutro";
   RobotService robotService = RobotService();
   bool selectedColor = false;
+  double progressInteligence = 0.0;
 
   var isSelected = {
     "Laser": false,
     "Visão Noturna": false,
-    "Proteção IP68": false,
     "Esteira": false,
     "Braço": false,
+    "Proteção IP68": false,
     "Blindagem": false,
     "Hélice": false,
     "Jetpack": false,
     "Visão Térmica": false,
+    "GPS": false
   };
 
   @override
@@ -120,15 +123,15 @@ class _RobotDetailScreenState extends State<RobotDetailScreen> {
       ),
       body: ListView(
         children: <Widget>[
-          _buildImagemDetalhes('assets/models/${robotModel.model}.jpg'),
+          Image.asset('assets/models/${robotModel.model}.jpg'),
           Padding(
             padding: EdgeInsets.only(left: 16, right: 16, top: 22),
             child: Center(
               child: Text(
-                "Profissão: $selectedProfession",
+                "$selectedProfession ${robotModel.sku}",
                 style: TextStyle(
-                  color: Colors.grey[600],
-                  fontWeight: FontWeight.w500,
+                  color: Colors.blue[700],
+                  fontWeight: FontWeight.bold,
                   fontSize: 22,
                 ),
               ),
@@ -146,7 +149,7 @@ class _RobotDetailScreenState extends State<RobotDetailScreen> {
                         ? '#${robotModel.color}'
                         : '#${_mainColor.value.toRadixString(16).toUpperCase().substring(2)}',
                     "Cor"),
-                buildPokFeature("${robotModel.productionLine}", "Produção"),
+                buildPokFeature("Nº ${robotModel.productionLine}", "Produção"),
                 buildPokFeature("${robotModel.robotParts.length}", "Peças"),
               ],
             ),
@@ -163,6 +166,49 @@ class _RobotDetailScreenState extends State<RobotDetailScreen> {
           _buildSubtitle("Configuração"),
           SizedBox(
             height: 15,
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              RaisedButton(onPressed: () {
+                for (var i = 0; i < 10; i++) {
+                  Future.delayed(
+                      Duration(seconds: 10),
+                      () => setState(() {
+                            progressInteligence = i / 10;
+                          }));
+                }
+              }),
+              Container(
+                width: 100,
+                height: 100,
+                child: Image.asset(
+                  'assets/logos/loading.gif',
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ],
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 20, right: 20),
+            child: GFProgressBar(
+              padding: EdgeInsets.only(left: 18, right: 18),
+              percentage: progressInteligence,
+              lineHeight: 20,
+              alignment: MainAxisAlignment.spaceBetween,
+              child: Text(
+                '${(progressInteligence * 100.0)}%',
+                textAlign: TextAlign.end,
+                style: TextStyle(fontSize: 16, color: Colors.white),
+              ),
+              leading:
+                  Icon(Icons.sentiment_dissatisfied, color: GFColors.DANGER),
+              trailing:
+                  Icon(Icons.sentiment_satisfied, color: GFColors.SUCCESS),
+              backgroundColor: Colors.black26,
+              progressBarColor: GFColors.PRIMARY,
+            ),
           ),
           Form(
             key: _formKey,
@@ -203,11 +249,11 @@ class _RobotDetailScreenState extends State<RobotDetailScreen> {
                         value == null ? 'profissão é obrigatória' : null,
                     items: [
                       "Vigilante",
-                      "Medico",
+                      "Médico",
                       "Bombeiro",
                       "Psicólogo",
                       "Auxiliar de fábrica",
-                      "Não Definida",
+                      "Neutro",
                     ].map<DropdownMenuItem<String>>((String value) {
                       setState(() {
                         selectedProfession = value;
@@ -328,6 +374,21 @@ class _RobotDetailScreenState extends State<RobotDetailScreen> {
                         Wrap(
                           children: [
                             FilterChip(
+                              label: Text('GPS'),
+                              labelStyle: TextStyle(
+                                  color: isSelected['GPS']
+                                      ? Colors.white
+                                      : Colors.grey[600]),
+                              selected: isSelected['GPS'],
+                              onSelected: (bool selected) {
+                                setState(() {
+                                  isSelected['GPS'] = !isSelected['GPS'];
+                                });
+                              },
+                              selectedColor: Theme.of(context).accentColor,
+                              checkmarkColor: Colors.white,
+                            ),
+                            FilterChip(
                               label: Text('Hélice'),
                               labelStyle: TextStyle(
                                   color: isSelected['Hélice']
@@ -415,10 +476,6 @@ class _RobotDetailScreenState extends State<RobotDetailScreen> {
         ],
       ),
     );
-  }
-
-  _buildImagemDetalhes(image) {
-    return Image.asset(image);
   }
 
   _buildSubtitle(subtitulo) {

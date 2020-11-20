@@ -1,13 +1,11 @@
 import 'package:dsrpt21_app/app/layout/colors.dart';
 import 'package:dsrpt21_app/app/screens/create_production_line_screen.dart';
 import 'package:dsrpt21_app/app/screens/group_screen.dart';
-import 'package:dsrpt21_app/app/screens/home_screen.dart';
 import 'package:dsrpt21_app/app/screens/production_line_detail_screen.dart';
 import 'package:dsrpt21_app/app/screens/production_line_screen.dart';
 import 'package:dsrpt21_app/app/screens/robot_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:splashscreen/splashscreen.dart';
 
 import 'app/screens/splash_screen.dart';
 

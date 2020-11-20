@@ -26,7 +26,7 @@ class _CreateProductionLineState extends State<CreateProductionLine> {
   final _formKey = GlobalKey<FormState>();
   ProductionLineModel productionLineModel = ProductionLineModel();
   ProductionLineService productionLineService = ProductionLineService();
-  String selectedModel = "model1";
+  String selectedModel = "Humanoide";
 
   var _chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
   Random _rnd = Random();
@@ -168,10 +168,10 @@ class _CreateProductionLineState extends State<CreateProductionLine> {
                   validator: (value) =>
                       value == null ? 'Modelo é obrigatória' : null,
                   items: [
-                    "model1",
-                    "model2",
-                    "model3",
-                    "model4",
+                    "Militar",
+                    "Quadrupede",
+                    "Articulado",
+                    "Humanoide",
                   ].map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
@@ -285,7 +285,6 @@ class _CreateProductionLineState extends State<CreateProductionLine> {
                   .then((productionLine) {
                 createBots(productionLineModel.count, productionLine);
 
-                Navigator.pop(context);
                 showAlertDialog(
                     context, "Criado com sucesso!", Icon(Icons.check));
               }).catchError((onError) {
@@ -332,7 +331,7 @@ class _CreateProductionLineState extends State<CreateProductionLine> {
 
       RobotModel robotModel = RobotModel(
           name: 'Robot ${randomNumber + i.toString()}',
-          profession: 'Não Definida',
+          profession: 'Neutro',
           color: '2196F3',
           productionLine: productionLineModel.id,
           robotParts: [],

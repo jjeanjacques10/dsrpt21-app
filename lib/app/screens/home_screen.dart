@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:shimmer/shimmer.dart';
 
 import '../layout/constants.dart';
 
@@ -24,8 +23,6 @@ class _HomeScreenState extends State<HomeScreen> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    double containerWidth = 220.0;
-    double containerHeight = 10.0;
     return Scaffold(
       primary: true,
       backgroundColor: AppColors.main,
@@ -93,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8.0),
                               child: Center(
-                                child: Image.asset('assets/models/model1.jpg'),
+                                child: Image.asset('assets/models/Militar.jpg'),
                               ),
                             ),
                             SizedBox(
@@ -102,7 +99,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8.0),
                               child: Center(
-                                child: Image.asset('assets/models/model2.jpg'),
+                                child:
+                                    Image.asset('assets/models/Quadrupede.jpg'),
                               ),
                             ),
                             SizedBox(
@@ -111,7 +109,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8.0),
                               child: Center(
-                                child: Image.asset('assets/models/model3.jpg'),
+                                child:
+                                    Image.asset('assets/models/Articulado.jpg'),
                               ),
                             ),
                             SizedBox(
@@ -120,7 +119,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8.0),
                               child: Center(
-                                child: Image.asset('assets/models/model4.jpg'),
+                                child:
+                                    Image.asset('assets/models/Humanoide.jpg'),
                               ),
                             ),
                           ],
