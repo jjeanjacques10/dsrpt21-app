@@ -1,6 +1,7 @@
 import 'package:dsrpt21_app/app/models/robot_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class RobotDetailScreen extends StatefulWidget {
   RobotDetailScreen({Key key}) : super(key: key);
@@ -13,12 +14,26 @@ class _RobotDetailScreenState extends State<RobotDetailScreen> {
   final _formKey = GlobalKey<FormState>();
   ColorSwatch _tempMainColor;
   ColorSwatch _mainColor = Colors.blue;
-  String selectedProfession = "Policial";
+  String selectedProfession = "Não Definida";
+  var isSelected = [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+  ];
 
   @override
   Widget build(BuildContext context) {
     RobotModel robotModel = ModalRoute.of(context).settings.arguments;
-
+    setState(() {
+      selectedProfession = robotModel.profession;
+    });
     return Scaffold(
       appBar: AppBar(
         title: Text(robotModel.name),
@@ -37,7 +52,19 @@ class _RobotDetailScreenState extends State<RobotDetailScreen> {
       body: ListView(
         children: <Widget>[
           _buildImagemDetalhes('assets/models/${robotModel.model}.jpg'),
-          _buildTitle("Profissão: ${robotModel.profession}"),
+          Padding(
+            padding: EdgeInsets.only(left: 16, right: 16, top: 22),
+            child: Center(
+              child: Text(
+                "Profissão: $selectedProfession",
+                style: TextStyle(
+                  color: Colors.grey[600],
+                  fontWeight: FontWeight.w500,
+                  fontSize: 22,
+                ),
+              ),
+            ),
+          ),
           SizedBox(
             height: 16,
           ),
@@ -60,32 +87,48 @@ class _RobotDetailScreenState extends State<RobotDetailScreen> {
             child: Column(
               children: [
                 new ListTile(
-                  leading: const Icon(Icons.person),
+                  leading: Icon(
+                    MdiIcons.square,
+                    color: Color(hexToColor(
+                        '#${_mainColor.value.toRadixString(16).toUpperCase().substring(2)}')),
+                  ),
                   title: Text(
                       "#${_mainColor.value.toRadixString(16).toUpperCase().substring(2)}"),
-                  onTap: _openMainColorPicker,
+                  onTap: () {
+                    setState(() {
+                      robotModel.color = _mainColor.value
+                          .toRadixString(16)
+                          .toUpperCase()
+                          .substring(2);
+                    });
+                    _openMainColorPicker();
+                  },
                 ),
                 new ListTile(
-                  leading: const Icon(Icons.eject),
+                  leading: const Icon(MdiIcons.briefcase),
                   title: DropdownButtonFormField<String>(
                     value: selectedProfession,
                     decoration: new InputDecoration(
                       hintText: "profissão",
                     ),
                     onChanged: (value) {
-                      selectedProfession = value;
-                      //productionLineModel.model = value;
+                      setState(() {
+                        selectedProfession = value;
+                      });
                     },
                     validator: (value) =>
                         value == null ? 'profissão é obrigatória' : null,
                     items: [
-                      "Policial",
+                      "Vigilante",
                       "Medico",
                       "Bombeiro",
-                      "Programador",
-                      "Auxiliar de fabrica",
+                      "Psicólogo",
+                      "Auxiliar de fábrica",
                       "Não Definida",
                     ].map<DropdownMenuItem<String>>((String value) {
+                      setState(() {
+                        selectedProfession = value;
+                      });
                       return DropdownMenuItem<String>(
                         value: value,
                         child: Text(value),
@@ -94,80 +137,153 @@ class _RobotDetailScreenState extends State<RobotDetailScreen> {
                   ),
                 ),
                 new ListTile(
-                    leading: const Icon(Icons.party_mode),
+                    leading: const Icon(MdiIcons.robotIndustrial),
                     title: Column(
                       children: [
-                        Row(
+                        Wrap(
                           children: [
                             FilterChip(
-                              label: Text('esteira'),
-                              selected: true,
-                              onSelected: (bool value) {},
-                            ),
-                            SizedBox(
-                              width: 10,
+                              label: Text('Laser'),
+                              labelStyle: TextStyle(
+                                  color: isSelected[0]
+                                      ? Colors.white
+                                      : Colors.grey[600]),
+                              selected: isSelected[0],
+                              onSelected: (bool selected) {
+                                setState(() {
+                                  isSelected[0] = !isSelected[0];
+                                });
+                              },
+                              selectedColor: Theme.of(context).accentColor,
+                              checkmarkColor: Colors.white,
                             ),
                             FilterChip(
-                              label: Text('pernas'),
-                              onSelected: (bool value) {},
-                            ),
-                            SizedBox(
-                              width: 10,
+                              label: Text('Visão Noturna'),
+                              labelStyle: TextStyle(
+                                  color: isSelected[1]
+                                      ? Colors.white
+                                      : Colors.grey[600]),
+                              selected: isSelected[1],
+                              onSelected: (bool selected) {
+                                setState(() {
+                                  isSelected[1] = !isSelected[1];
+                                });
+                              },
+                              selectedColor: Theme.of(context).accentColor,
+                              checkmarkColor: Colors.white,
                             ),
                             FilterChip(
-                              label: Text('laser'),
-                              selected: true,
-                              onSelected: (bool value) {},
+                              label: Text('Proteção IP68'),
+                              labelStyle: TextStyle(
+                                  color: isSelected[2]
+                                      ? Colors.white
+                                      : Colors.grey[600]),
+                              selected: isSelected[2],
+                              onSelected: (bool selected) {
+                                setState(() {
+                                  isSelected[2] = !isSelected[2];
+                                });
+                              },
+                              selectedColor: Theme.of(context).accentColor,
+                              checkmarkColor: Colors.white,
                             ),
                           ],
                         ),
-                        Row(
-                          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        Wrap(
                           children: [
                             FilterChip(
-                              label: Text('Filter 1'),
-                              selected: true,
-                              onSelected: (bool value) {},
-                            ),
-                            SizedBox(
-                              width: 10,
+                              label: Text('Esteira'),
+                              labelStyle: TextStyle(
+                                  color: isSelected[3]
+                                      ? Colors.white
+                                      : Colors.grey[600]),
+                              selected: isSelected[3],
+                              onSelected: (bool selected) {
+                                setState(() {
+                                  isSelected[3] = !isSelected[3];
+                                });
+                              },
+                              selectedColor: Theme.of(context).accentColor,
+                              checkmarkColor: Colors.white,
                             ),
                             FilterChip(
-                              label: Text('Filter 2'),
-                              onSelected: (bool value) {},
-                            ),
-                            SizedBox(
-                              width: 10,
+                              label: Text('Braço'),
+                              labelStyle: TextStyle(
+                                  color: isSelected[4]
+                                      ? Colors.white
+                                      : Colors.grey[600]),
+                              selected: isSelected[4],
+                              onSelected: (bool selected) {
+                                setState(() {
+                                  isSelected[4] = !isSelected[4];
+                                });
+                              },
+                              selectedColor: Theme.of(context).accentColor,
+                              checkmarkColor: Colors.white,
                             ),
                             FilterChip(
-                              label: Text('Filter 3'),
-                              selected: true,
-                              onSelected: (bool value) {},
+                              label: Text('Blindagem'),
+                              labelStyle: TextStyle(
+                                  color: isSelected[5]
+                                      ? Colors.white
+                                      : Colors.grey[600]),
+                              selected: isSelected[5],
+                              onSelected: (bool selected) {
+                                setState(() {
+                                  isSelected[5] = !isSelected[5];
+                                });
+                              },
+                              selectedColor: Theme.of(context).accentColor,
+                              checkmarkColor: Colors.white,
                             ),
                           ],
                         ),
-                        Row(
-                          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        Wrap(
                           children: [
                             FilterChip(
-                              label: Text('Filter 1'),
-                              selected: true,
-                              onSelected: (bool value) {},
-                            ),
-                            SizedBox(
-                              width: 10,
+                              label: Text('Hélice'),
+                              labelStyle: TextStyle(
+                                  color: isSelected[6]
+                                      ? Colors.white
+                                      : Colors.grey[600]),
+                              selected: isSelected[6],
+                              onSelected: (bool selected) {
+                                setState(() {
+                                  isSelected[6] = !isSelected[6];
+                                });
+                              },
+                              selectedColor: Theme.of(context).accentColor,
+                              checkmarkColor: Colors.white,
                             ),
                             FilterChip(
-                              label: Text('Filter 2'),
-                              onSelected: (bool value) {},
-                            ),
-                            SizedBox(
-                              width: 10,
+                              label: Text('Jetpack'),
+                              labelStyle: TextStyle(
+                                  color: isSelected[7]
+                                      ? Colors.white
+                                      : Colors.grey[600]),
+                              selected: isSelected[7],
+                              onSelected: (bool selected) {
+                                setState(() {
+                                  isSelected[7] = !isSelected[7];
+                                });
+                              },
+                              selectedColor: Theme.of(context).accentColor,
+                              checkmarkColor: Colors.white,
                             ),
                             FilterChip(
-                              label: Text('Filter 3'),
-                              selected: true,
-                              onSelected: (bool value) {},
+                              label: Text('Visão Térmica'),
+                              labelStyle: TextStyle(
+                                  color: isSelected[8]
+                                      ? Colors.white
+                                      : Colors.grey[600]),
+                              selected: isSelected[8],
+                              onSelected: (bool selected) {
+                                setState(() {
+                                  isSelected[8] = !isSelected[8];
+                                });
+                              },
+                              selectedColor: Theme.of(context).accentColor,
+                              checkmarkColor: Colors.white,
                             ),
                           ],
                         ),
@@ -176,22 +292,12 @@ class _RobotDetailScreenState extends State<RobotDetailScreen> {
                 SizedBox(
                   height: 20,
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: <Color>[
-                          const Color(0xFF3366FF),
-                          const Color(0xFF00CCFF),
-                        ]),
-                  ),
-                  child: RaisedButton(
-                    textColor: Colors.white,
-                    color: Colors.transparent,
-                    child: Text("Atualizar"),
-                    onPressed: () async => {},
-                  ),
+                RaisedButton.icon(
+                  textColor: Colors.white,
+                  color: Colors.blue,
+                  icon: Icon(MdiIcons.refreshCircle),
+                  label: Text("Atualizar Robô"),
+                  onPressed: () async {},
                 )
               ],
             ),
@@ -207,22 +313,6 @@ class _RobotDetailScreenState extends State<RobotDetailScreen> {
 
   _buildImagemDetalhes(image) {
     return Image.asset(image);
-  }
-
-  _buildTitle(titulo) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16),
-      child: Center(
-        child: Text(
-          titulo,
-          style: TextStyle(
-            color: Colors.grey[600],
-            fontWeight: FontWeight.w500,
-            fontSize: 22,
-          ),
-        ),
-      ),
-    );
   }
 
   _buildLineDetailIcons(color, prod, parts) {
@@ -312,22 +402,31 @@ class _RobotDetailScreenState extends State<RobotDetailScreen> {
     List<Widget> list = [];
     for (var i = 0; i < items.length; i++) {
       list.add(Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16),
-        child: Text(
-          items[i],
-          style: TextStyle(
-            color: Colors.grey[600],
-            fontSize: 15,
-          ),
-        ),
-      ));
+          padding: EdgeInsets.only(left: 5),
+          child: Wrap(
+            children: [
+              FilterChip(
+                label: Text(
+                  items[i],
+                ),
+                selected: false,
+                onSelected: (bool selected) {
+                  setState(() {});
+                },
+              ),
+              SizedBox(
+                width: 10,
+              ),
+            ],
+          )));
     }
     return Container(
       height: 80,
       child: Flexible(
         child: ListView(
+            padding: EdgeInsets.only(left: 30),
             physics: BouncingScrollPhysics(),
-            scrollDirection: Axis.vertical,
+            scrollDirection: Axis.horizontal,
             children: list),
       ),
     );
@@ -335,7 +434,7 @@ class _RobotDetailScreenState extends State<RobotDetailScreen> {
 
   void _openMainColorPicker() async {
     _openDialog(
-      "Main Color picker",
+      "Selecionar Cor do Robô",
       MaterialColorPicker(
         selectedColor: _mainColor,
         allowShades: false,
@@ -354,11 +453,11 @@ class _RobotDetailScreenState extends State<RobotDetailScreen> {
           content: content,
           actions: [
             FlatButton(
-              child: Text('CANCEL'),
+              child: Text('Cancelar'),
               onPressed: Navigator.of(context).pop,
             ),
             FlatButton(
-              child: Text('SUBMIT'),
+              child: Text('Selecionar'),
               onPressed: () {
                 Navigator.of(context).pop();
                 setState(() => _mainColor = _tempMainColor);
@@ -368,5 +467,9 @@ class _RobotDetailScreenState extends State<RobotDetailScreen> {
         );
       },
     );
+  }
+
+  int hexToColor(String hexString, {String alphaChannel = 'FF'}) {
+    return int.parse(hexString.replaceFirst('#', '0x$alphaChannel'));
   }
 }
