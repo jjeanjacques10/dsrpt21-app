@@ -182,7 +182,7 @@ class _RobotDetailScreenState extends State<RobotDetailScreen> {
                     ),
                     child: RaisedButton(
                       color: Colors.blue,
-                      child: Text('Conciência não carregada',
+                      child: Text('Carregar Consciência',
                           style: TextStyle(
                             color: Colors.white,
                           )),
@@ -227,7 +227,7 @@ class _RobotDetailScreenState extends State<RobotDetailScreen> {
                                   fit: BoxFit.cover,
                                 ),
                               ),
-                              Text('Conciência carregada'),
+                              Text('Consciência carregada'),
                               SizedBox(
                                 height: 12,
                               )
