@@ -4,34 +4,34 @@
     <table border="0" style="text-align: center; justify-content: center; align-items: center; ">
         <tr>
             <td style="text-align: center">
-                <img src="https://raw.githubusercontent.com/jjeanjacques10/dsrpt21-app/main/screenshots/loading.jpg?token=AHV3Q62FGFXZFBQSOKFKPX27YHCFA"
+                <img src="https://raw.githubusercontent.com/jjeanjacques10/dsrpt21-app/main/screenshots/loading.jpg"
                     width="250" />
                 </br>
             </td>
             <td style="text-align: center">
-                <img src="https://raw.githubusercontent.com/jjeanjacques10/dsrpt21-app/main/screenshots/home.jpg?token=AHV3Q63EIMGEZGLIXOIBZX27YHCE2"
+                <img src="https://raw.githubusercontent.com/jjeanjacques10/dsrpt21-app/main/screenshots/home.jpg"
                     width="250" />
                 </br>
             </td>
             <td style="text-align: center">
-                <img src="https://raw.githubusercontent.com/jjeanjacques10/dsrpt21-app/main/screenshots/cadastro.jpg?token=AHV3Q63P5FWIYZQYF3R6D4S7YHCHS"
+                <img src="https://raw.githubusercontent.com/jjeanjacques10/dsrpt21-app/main/screenshots/cadastro.jpg"
                     width="250" />
                 </br>
             </td>
         </tr>
          <tr>
             <td style="text-align: center">
-                <img src="https://raw.githubusercontent.com/jjeanjacques10/dsrpt21-app/main/screenshots/lista_producoes.jpg?token=AHV3Q62QA2NODPPOAZIQ44S7YHCHW"
+                <img src="https://raw.githubusercontent.com/jjeanjacques10/dsrpt21-app/main/screenshots/lista_producoes.jpg"
                     width="250" />
                 </br>
             </td>
             <td style="text-align: center">
-                <img src="https://raw.githubusercontent.com/jjeanjacques10/dsrpt21-app/main/screenshots/detalhes_1.jpg?token=AHV3Q67JSTV7S7U7BAEGVHK7YHCKG"
+                <img src="https://raw.githubusercontent.com/jjeanjacques10/dsrpt21-app/main/screenshots/detalhes_1.jpg"
                     width="250" />
                 </br>
             </td>
             <td style="text-align: center">
-                <img src="https://raw.githubusercontent.com/jjeanjacques10/dsrpt21-app/main/screenshots/detalhes_2.jpg?token=AHV3Q6ZHITRYW2I5GE6WOBS7YHCKQ"
+                <img src="https://raw.githubusercontent.com/jjeanjacques10/dsrpt21-app/main/screenshots/detalhes_2.jpg"
                     width="250" />
                 </br>
             </td>
